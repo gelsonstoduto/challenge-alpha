@@ -1,5 +1,6 @@
 package br.com.gstoduto.starwars.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,11 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.gstoduto.starwars.R
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
@@ -58,16 +61,29 @@ fun HomeScreen(
             Column(
                 modifier
                     .fillMaxSize()
+                    .background(color = Color.Black)
             ) {
                 Surface {
-                    Text(
-                        text = "H o m e / F i l m s",
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center
-                    )
+                    Column(
+                        modifier
+                            .background(color = Color.Black)
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.star_wars),
+                            contentDescription = null,
+                            Modifier
+                                .fillMaxWidth(),
+                            contentScale = ContentScale.Crop
+                        )
+                        Text(
+                            text = "H o m e / F i l m s",
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp),
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Start
+                        )
+                    }
                 }
                 LazyVerticalStaggeredGrid(
                     columns = StaggeredGridCells.Fixed(columns),
@@ -84,7 +100,7 @@ fun HomeScreen(
                             .joinToString("")
                         val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
-                        Column() {
+                        Column {
                             AsyncImage(
                                 model = image,
                                 contentDescription = null,
