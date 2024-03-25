@@ -3,7 +3,7 @@ package br.com.gstoduto.starwars.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.gstoduto.starwars.repositories.MovieRepository
-import br.com.gstoduto.starwars.ui.uistates.HomeUiState
+import br.com.gstoduto.starwars.ui.uistates.MovieUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class MovieViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
     private var currentUiStateJob: Job? = null
-    private val _uiState = MutableStateFlow<HomeUiState>(
-        HomeUiState.Loading
+    private val _uiState = MutableStateFlow<MovieUiState>(
+        MovieUiState.Loading
     )
     val uiState = _uiState.asStateFlow()
 
@@ -33,15 +33,15 @@ class HomeViewModel @Inject constructor(
         currentUiStateJob?.cancel()
         currentUiStateJob = viewModelScope.launch {
             repository.findMovies().onStart {
-                _uiState.update { HomeUiState.Loading }
+                _uiState.update { MovieUiState.Loading }
             }.collectLatest { movies ->
                 if (movies.isEmpty()) {
                     _uiState.update {
-                        HomeUiState.Empty
+                        MovieUiState.Empty
                     }
                 } else {
                     _uiState.update {
-                        HomeUiState.Success(
+                        MovieUiState.Success(
                             movies = movies
                         )
                     }

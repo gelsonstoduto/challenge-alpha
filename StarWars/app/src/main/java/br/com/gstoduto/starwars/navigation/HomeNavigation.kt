@@ -8,16 +8,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.ui.screens.HomeScreen
-import br.com.gstoduto.starwars.ui.viewmodels.HomeViewModel
+import br.com.gstoduto.starwars.ui.screens.MovieScreen
+import br.com.gstoduto.starwars.ui.viewmodels.MovieViewModel
 
-fun NavGraphBuilder.homeScreen(
+fun NavGraphBuilder.movieScreen(
     onNavigateToMovieDetails: (Movie) -> Unit,
 ) {
     composable(DestinationsStarWarsApp.homeRoute.rota) {
-        val viewModel = hiltViewModel<HomeViewModel>()
+        val viewModel = hiltViewModel<MovieViewModel>()
         val uiState by viewModel.uiState.collectAsState()
-        HomeScreen(
+        MovieScreen(
             uiState = uiState,
             columns = 2,
             onMovieClick = onNavigateToMovieDetails,

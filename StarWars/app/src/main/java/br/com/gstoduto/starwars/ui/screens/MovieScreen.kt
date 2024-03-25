@@ -35,20 +35,20 @@ import br.com.gstoduto.starwars.R
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.HomeUiState
+import br.com.gstoduto.starwars.ui.uistates.MovieUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
-fun HomeScreen(
-    uiState: HomeUiState,
+fun MovieScreen(
+    uiState: MovieUiState,
     onMovieClick: (Movie) -> Unit,
     onRetryLoadMovies: () -> Unit,
     columns: Int,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        HomeUiState.Loading -> {
+        MovieUiState.Loading -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
@@ -56,7 +56,7 @@ fun HomeScreen(
             }
         }
 
-        is HomeUiState.Success -> {
+        is MovieUiState.Success -> {
             val movies = uiState.movies
             Column(
                 modifier
@@ -130,7 +130,7 @@ fun HomeScreen(
             }
         }
 
-        HomeUiState.Empty -> {
+        MovieUiState.Empty -> {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
@@ -156,8 +156,8 @@ fun HomeScreenPreview() {
     StarWarsTheme {
         Surface {
             Surface(color = MaterialTheme.colorScheme.background) {
-                HomeScreen(
-                    uiState = HomeUiState.Success(
+                MovieScreen(
+                    uiState = MovieUiState.Success(
                         movies = sampleMovies
                     ),
                     onRetryLoadMovies = {},

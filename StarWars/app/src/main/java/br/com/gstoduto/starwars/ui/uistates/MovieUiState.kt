@@ -3,14 +3,14 @@ package br.com.gstoduto.starwars.ui.uistates
 import br.com.gstoduto.starwars.model.Movie
 
 
-sealed class HomeUiState {
+sealed class MovieUiState {
 
-    object Loading : HomeUiState()
+    object Loading : MovieUiState()
 
-    object Empty : HomeUiState()
+    object Empty : MovieUiState()
 
     data class Success(
         val movies: List<Movie> = emptyList()
-    ) : HomeUiState()
+    ) : MovieUiState()
 
 }

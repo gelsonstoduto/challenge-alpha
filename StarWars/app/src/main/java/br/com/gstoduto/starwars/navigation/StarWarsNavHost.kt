@@ -16,7 +16,7 @@ fun StarWarsNavHost(
         navController = navController,
         startDestination = DestinationsStarWarsApp.homeRoute.rota
     ) {
-        homeScreen(
+        movieScreen(
             onNavigateToMovieDetails = {
 
             },
