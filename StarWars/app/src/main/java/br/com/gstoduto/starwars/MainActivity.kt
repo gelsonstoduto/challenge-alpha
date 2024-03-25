@@ -3,31 +3,28 @@ package br.com.gstoduto.starwars
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -35,9 +32,11 @@ import br.com.gstoduto.starwars.navigation.DestinationsStarWarsApp
 import br.com.gstoduto.starwars.navigation.StarWarsNavHost
 import br.com.gstoduto.starwars.navigation.navigateToBottomAppBarItem
 import br.com.gstoduto.starwars.ui.components.BottomAppBarItem
+import br.com.gstoduto.starwars.ui.components.MenuLateral
 import br.com.gstoduto.starwars.ui.components.StarWarsBottomAppBar
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -56,6 +55,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StarWarsApp(
     navController: NavHostController = rememberNavController()
@@ -63,111 +63,86 @@ fun StarWarsApp(
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
     val currentRoute = currentDestination?.route
-    val selectedBottomAppBarItem = when (currentRoute) {
-        DestinationsStarWarsApp.homeRoute.rota -> BottomAppBarItem.Home
-        DestinationsStarWarsApp.myListRoute.rota -> BottomAppBarItem.MyList
-        else -> BottomAppBarItem.Home
+
+    val selectedItem by remember(currentDestination) {
+        val item = when (currentRoute) {
+            DestinationsStarWarsApp.homeRoute.rota -> BottomAppBarItem.Home
+            DestinationsStarWarsApp.myListRoute.rota -> BottomAppBarItem.MyList
+            else -> BottomAppBarItem.Home
+        }
+        mutableStateOf(item)
     }
+
     val bottomAppBarItems = remember {
         listOf(
             BottomAppBarItem.Home,
             BottomAppBarItem.MyList
         )
     }
-    val isShowBackNavigation = when (currentRoute) {
-        DestinationsStarWarsApp.myListRoute.rota, DestinationsStarWarsApp.movieDetailsRouteFullpath.rota -> true
-        else -> false
-    }
-    val isShowBottomAppBar = when (currentRoute) {
-        DestinationsStarWarsApp.homeRoute.rota, DestinationsStarWarsApp.myListRoute.rota -> true
-        else -> false
-    }
-    StarWarsApp(
-        bottomAppBarItems = bottomAppBarItems,
-        selectedBottomAppBarItem = selectedBottomAppBarItem,
-        onBottomAppBarItemSelected = { item ->
-            navController.navigateToBottomAppBarItem(item)
-        },
-        isShowBackNavigation = isShowBackNavigation,
-        isShowBottomAppBar = isShowBottomAppBar,
-        onBackNavigationClick = {
-            navController.popBackStack()
-        },
-        topAppBarTitle = {
-            when (currentRoute) {
-                DestinationsStarWarsApp.myListRoute.rota -> {
-                    Text("Minha lista")
-                }
-                DestinationsStarWarsApp.movieDetailsRouteFullpath.rota -> {
-                    Text("Informações")
-                }
-                DestinationsStarWarsApp.homeRoute.rota -> {
-                    Image(
-                        painterResource(id = R.drawable.star_wars_logo),
-                        contentDescription = null,
-                        Modifier
-                            .size(30.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-            }
-        }
-    )
-    {
-        StarWarsNavHost(
-            navController = navController
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+
+    MenuLateral(
+        navController = navController,
+        drawerState = drawerState,
+        currentRoute = currentRoute
+    ) {
+        StarWarsApp(
+            bottomAppBarItems = bottomAppBarItems,
+            selectedItem = selectedItem,
+            onBottomAppBarItemSelected = { item ->
+                navController.navigateToBottomAppBarItem(item)
+            },
+            drawerState = drawerState,
         )
+        {
+            StarWarsNavHost(
+                navController = navController
+            )
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StarWarsApp(
-    selectedBottomAppBarItem: BottomAppBarItem,
+    selectedItem: BottomAppBarItem,
     bottomAppBarItems: List<BottomAppBarItem>,
     onBottomAppBarItemSelected: (BottomAppBarItem) -> Unit,
-    isShowBackNavigation: Boolean = false,
-    isShowBottomAppBar: Boolean = false,
-    topAppBarTitle: @Composable () -> Unit = {},
-    onBackNavigationClick: () -> Unit = {},
+    drawerState: DrawerState,
     content: @Composable () -> Unit
 ) {
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    topAppBarTitle()
+                    Text(
+                        "StarWars"
+                    )
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
-                    actionIconContentColor = MaterialTheme.colorScheme.onBackground
-                ),
                 navigationIcon = {
-                    if (isShowBackNavigation) {
+                    IconButton(onClick = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    }) {
                         Icon(
-                            Icons.Default.ArrowBack,
-                            contentDescription = null,
-                            Modifier
-                                .padding(16.dp)
-                                .clip(CircleShape)
-                                .clickable {
-                                    onBackNavigationClick()
-                                }
+                            imageVector = Icons.Outlined.Menu,
+                            contentDescription = null
                         )
                     }
-                })
+                }
+            )
         },
         bottomBar = {
-            if (isShowBottomAppBar) {
-                StarWarsBottomAppBar(
-                    selectedItem = selectedBottomAppBarItem,
-                    items = bottomAppBarItems,
-                    onItemClick = {
-                        onBottomAppBarItemSelected(it)
-                    }
-                )
-            }
+            StarWarsBottomAppBar(
+                selectedItem = selectedItem,
+                items = bottomAppBarItems,
+                onItemClick = {
+                    onBottomAppBarItemSelected(it)
+                }
+            )
         }
     ) {
         Box(
