@@ -30,11 +30,6 @@ fun NavGraphBuilder.myListScreen(
                 }
             },
             onMovieClick = onNavigateToMovieDetails,
-/*            onRetryLoadMyList = {
-                scope.launch {
-                    viewModel.loadMyList()
-                }
-            }*/
         )
     }
 }
