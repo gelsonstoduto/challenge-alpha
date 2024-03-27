@@ -1,7 +1,6 @@
 package br.com.gstoduto.starwars.model
 
 import androidx.room.ColumnInfo
-import br.com.gstoduto.starwars.database.entities.MovieEntity
 
 data class Movie(
     val title: String,
