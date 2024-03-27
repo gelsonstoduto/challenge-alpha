@@ -2,6 +2,7 @@ package br.com.gstoduto.starwars.repositories
 
 import android.util.Log
 import br.com.gstoduto.starwars.database.dao.MovieDao
+import br.com.gstoduto.starwars.database.entities.MovieEntity
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.network.model.toMovieEntity
 import br.com.gstoduto.starwars.network.services.MovieService
@@ -28,5 +29,21 @@ class MovieRepository @Inject constructor(
         }
 
         return dao.findAll()
+    }
+
+    fun findMovie(id: String): Flow<MovieEntity> {
+        return dao.findMovieById(id)
+    }
+
+    suspend fun addToMyList(id: String) {
+        dao.addToMyList(id)
+    }
+
+    suspend fun removeFromMyList(id: String) {
+        dao.removeFromMyList(id)
+    }
+
+    fun myList(): Flow<List<MovieEntity>>{
+        return dao.myList()
     }
 }
