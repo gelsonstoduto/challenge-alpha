@@ -1,6 +1,7 @@
 package br.com.gstoduto.starwars.di.modules
 
 import br.com.gstoduto.starwars.network.services.MovieService
+import br.com.gstoduto.starwars.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,7 @@ object RestApiModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://swapi.dev/api/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
