@@ -1,7 +1,9 @@
 package br.com.gstoduto.starwars.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Adjust
+import androidx.compose.material.icons.outlined.DirectionsCar
+import androidx.compose.material.icons.outlined.Movie
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class ItemsMenuLateral(
@@ -10,8 +12,20 @@ sealed class ItemsMenuLateral(
     val route:String
 ) {
     object ItemMovies: ItemsMenuLateral(
-        Icons.Outlined.Add,
-        "Lista de Filmes",
+        Icons.Outlined.Movie,
+        "Film List",
+        DestinationsStarWarsApp.homeRoute.rota
+    )
+
+    object ItemVehicles: ItemsMenuLateral(
+        Icons.Outlined.DirectionsCar,
+        "Vehicle list",
+        DestinationsStarWarsApp.homeRoute.rota
+    )
+
+    object ItemSpecies: ItemsMenuLateral(
+        Icons.Outlined.Adjust,
+        "Species list",
         DestinationsStarWarsApp.homeRoute.rota
     )
 }

@@ -52,6 +52,16 @@ fun MenuLateral(
             ItemsMenuLateral.ItemMovies.icon,
             ItemsMenuLateral.ItemMovies.title,
             ItemsMenuLateral.ItemMovies.route,
+        ),
+        DrawerItems(
+            ItemsMenuLateral.ItemVehicles.icon,
+            ItemsMenuLateral.ItemVehicles.title,
+            ItemsMenuLateral.ItemVehicles.route,
+        ),
+        DrawerItems(
+            ItemsMenuLateral.ItemSpecies.icon,
+            ItemsMenuLateral.ItemSpecies.title,
+            ItemsMenuLateral.ItemSpecies.route,
         )
     )
 
