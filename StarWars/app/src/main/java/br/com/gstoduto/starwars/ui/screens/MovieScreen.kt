@@ -114,7 +114,7 @@ fun MovieScreen(
                                 contentScale = ContentScale.Crop
                             )
                             Text(
-                                text = "${movie.episodeId}: ${movie.title}",
+                                text = "Episode ${movie.episodeId}: ${movie.title}",
                                 Modifier
                                     .background(color = Color.White)
                                     .fillMaxWidth()
