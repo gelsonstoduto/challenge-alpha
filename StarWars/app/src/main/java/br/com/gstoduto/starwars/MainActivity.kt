@@ -67,7 +67,7 @@ fun StarWarsApp(
     val selectedItem by remember(currentDestination) {
         val item = when (currentRoute) {
             DestinationsStarWarsApp.homeRoute.rota -> BottomAppBarItem.Home
-            DestinationsStarWarsApp.myListRoute.rota -> BottomAppBarItem.MyList
+            DestinationsStarWarsApp.myMovieListRoute.rota -> BottomAppBarItem.MyList
             else -> BottomAppBarItem.Home
         }
         mutableStateOf(item)
