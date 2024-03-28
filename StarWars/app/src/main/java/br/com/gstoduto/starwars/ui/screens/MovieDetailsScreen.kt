@@ -29,8 +29,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovieAdded
 import br.com.gstoduto.starwars.sampleData.sampleMovieRemoved
@@ -87,18 +92,35 @@ fun MovieDetailsScreen(
                             contentScale = ContentScale.Crop
                         )
                         Column {
-                            Text(text = movie.title)
+                            Text(
+                                text = movie.title,
+                                style = TextStyle.Default.copy(
+                                    fontSize = 16.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                ))
+                            Spacer(modifier = Modifier.size(8.dp))
                             Text(text = "Episode ${movie.episodeId.toString()}")
+                            Spacer(modifier = Modifier.size(4.dp))
                             Text(text = "Director: ${movie.director}")
+                            Spacer(modifier = Modifier.size(4.dp))
                             Text(text = "Producer(s): ${movie.producer}")
+                            Spacer(modifier = Modifier.size(4.dp))
+                        }
+                    }
+
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    movie?.let {
+                        Column {
                             movie.openingCrawl?.let {
                                 Text(
-                                    text = "Opening Crawl: ${
-                                        it.substring(
-                                            0,
-                                            20
-                                        )
-                                    }"
+                                    text = "Opening Crawl: ${it.replace("\r\n", " ")}",
+                                    maxLines = 10,
+                                    overflow = TextOverflow.Ellipsis,
+                                    textAlign = TextAlign.Justify
                                 )
                             }
                         }

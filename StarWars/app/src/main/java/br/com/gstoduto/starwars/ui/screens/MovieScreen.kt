@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -117,8 +118,9 @@ fun MovieScreen(
                                     .fillMaxWidth()
                                     .padding(start = 4.dp),
                                 style = TextStyle.Default.copy(
-                                    fontSize = 10.sp,
-                                    color = Color.Black
+                                    fontSize = 16.sp,
+                                    color = Color.Black,
+                                    fontWeight = FontWeight.Bold
                                 )
                             )
                         }
