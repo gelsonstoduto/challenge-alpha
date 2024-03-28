@@ -55,8 +55,8 @@ private class ToggleButton(
 @Composable
 fun MovieDetailsScreen(
     uiState: MovieDetailsUiState,
-    onAddToMyListClick: (Movie) -> Unit,
-    onRemoveFromMyList: (Movie) -> Unit,
+    onAddMovieToMyListClick: (Movie) -> Unit,
+    onRemoveMovieFromMyList: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -137,14 +137,14 @@ fun MovieDetailsScreen(
                             ToggleButton(
                                 icon = Icons.Default.PlaylistRemove,
                                 text = "Remover da lista",
-                                action = onRemoveFromMyList,
+                                action = onRemoveMovieFromMyList,
                                 buttonColor = 0xffB20510
                             )
                         } else {
                             ToggleButton(
                                 icon = Icons.Default.PlaylistAdd,
                                 text = "Adicionar à lista",
-                                action = onAddToMyListClick,
+                                action = onAddMovieToMyListClick,
                                 buttonColor = 0xff4F4F4F
                             )
                         }
@@ -193,8 +193,8 @@ fun MovieDetailsScreenWithMovieAddedToMyListPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             MovieDetailsScreen(
                 uiState = MovieDetailsUiState(),
-                onAddToMyListClick = {},
-                onRemoveFromMyList = {},
+                onAddMovieToMyListClick = {},
+                onRemoveMovieFromMyList = {},
             )
         }
     }
@@ -207,8 +207,8 @@ fun MovieDetailsScreenWithoutMovieAddedToMyListPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             MovieDetailsScreen(
                 uiState = MovieDetailsUiState(movie = sampleMovieAdded),
-                onAddToMyListClick = {},
-                onRemoveFromMyList = {},
+                onAddMovieToMyListClick = {},
+                onRemoveMovieFromMyList = {},
             )
         }
     }
@@ -221,8 +221,8 @@ fun MovieDetailsScreenWithMovieRemovedFromMyListPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             MovieDetailsScreen(
                 uiState = MovieDetailsUiState(movie = sampleMovieRemoved),
-                onAddToMyListClick = {},
-                onRemoveFromMyList = {},
+                onAddMovieToMyListClick = {},
+                onRemoveMovieFromMyList = {},
             )
         }
     }

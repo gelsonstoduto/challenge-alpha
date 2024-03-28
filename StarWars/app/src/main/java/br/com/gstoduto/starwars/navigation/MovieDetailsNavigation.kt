@@ -31,12 +31,12 @@ fun NavGraphBuilder.movieDetails(
 
             MovieDetailsScreen(
                 uiState = uiState,
-                onAddToMyListClick = {
+                onAddMovieToMyListClick = {
                     scope.launch {
                         viewModel.addMovieToMyList(it)
                     }
                 },
-                onRemoveFromMyList = {
+                onRemoveMovieFromMyList = {
                     scope.launch {
                         viewModel.removeMovieFromMyList(it)
                     }
