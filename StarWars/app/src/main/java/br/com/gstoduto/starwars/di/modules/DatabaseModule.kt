@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import br.com.gstoduto.starwars.database.StarWarsDatabase
 import br.com.gstoduto.starwars.database.dao.MovieDao
+import br.com.gstoduto.starwars.database.dao.VehicleDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,4 +34,8 @@ object DatabaseModule {
         return db.movieDao()
     }
 
+    @Provides
+    fun provideVehicleDao(db: StarWarsDatabase): VehicleDao {
+        return db.vehicleDao()
+    }
 }
