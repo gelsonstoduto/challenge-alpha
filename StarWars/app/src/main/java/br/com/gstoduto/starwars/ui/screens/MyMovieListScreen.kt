@@ -37,28 +37,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
+import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.MyListUiState
+import br.com.gstoduto.starwars.ui.uistates.MyMovieListUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
 fun MyListScreen(
-    uiState: MyListUiState,
+    uiState: MyMovieListUiState,
     onSeeOtherMovies: () -> Unit,
     onMovieClick: (Movie) -> Unit,
     onRemoveMovieFromMyList: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        MyListUiState.Loading -> {
+        MyMovieListUiState.Loading -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
                 )
             }
         }
-        is MyListUiState.Success -> {
+        is MyMovieListUiState.Success -> {
             val movies = uiState.movies
             val size = movies.size
             val columns = remember(size) {
@@ -115,11 +116,7 @@ fun MyListScreen(
                                         )
                                     )
                                 }
-                                val urlImage = movie.url
-                                    .substring(movie.url.length - 3)
-                                    .split("/")
-                                    .drop(1)
-                                    .joinToString("")
+                                val urlImage = getIndexMovieImage(movie)
                                 val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
                                 AsyncImage(
@@ -139,7 +136,7 @@ fun MyListScreen(
 
             }
         }
-        is MyListUiState.Empty -> {
+        is MyMovieListUiState.Empty -> {
             Box(
                 Modifier.fillMaxSize()
             ) {
@@ -168,7 +165,7 @@ fun MyListScreenPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             MyListScreen(
-                uiState = MyListUiState.Success(sampleMovies),
+                uiState = MyMovieListUiState.Success(sampleMovies),
                 onSeeOtherMovies = {},
                 onRemoveMovieFromMyList = {},
                 onMovieClick = {},
@@ -183,7 +180,7 @@ fun MyListScreenWithoutMoviesPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             MyListScreen(
-                uiState = MyListUiState.Empty(),
+                uiState = MyMovieListUiState.Empty(),
                 onSeeOtherMovies = {},
                 onRemoveMovieFromMyList = {},
                 onMovieClick = {},

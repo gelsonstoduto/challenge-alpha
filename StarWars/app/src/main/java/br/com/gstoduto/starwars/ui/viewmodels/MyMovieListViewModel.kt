@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.gstoduto.starwars.database.entities.toMovie
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.repositories.MovieRepository
-import br.com.gstoduto.starwars.ui.uistates.MyListUiState
+import br.com.gstoduto.starwars.ui.uistates.MyMovieListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyListViewModel @Inject constructor(
+class MyMovieListViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<MyListUiState>(
-        MyListUiState.Loading
+    private val _uiState = MutableStateFlow<MyMovieListUiState>(
+        MyMovieListUiState.Loading
     )
     val uiState = _uiState.asStateFlow()
 
@@ -37,9 +37,9 @@ class MyListViewModel @Inject constructor(
             }
             _uiState.update {
                 if (movies.isEmpty()) {
-                    MyListUiState.Empty(movies = movies)
+                    MyMovieListUiState.Empty(movies = movies)
                 } else {
-                    MyListUiState.Success(movies = movies)
+                    MyMovieListUiState.Success(movies = movies)
                 }
             }
         }

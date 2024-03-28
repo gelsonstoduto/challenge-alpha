@@ -10,15 +10,15 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.ui.screens.MyListScreen
-import br.com.gstoduto.starwars.ui.viewmodels.MyListViewModel
+import br.com.gstoduto.starwars.ui.viewmodels.MyMovieListViewModel
 import kotlinx.coroutines.launch
 
-fun NavGraphBuilder.myListScreen(
+fun NavGraphBuilder.myMovieListScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToMovieDetails: (Movie) -> Unit
 ) {
-    composable(DestinationsStarWarsApp.myListRoute.rota) {
-        val viewModel = hiltViewModel<MyListViewModel>()
+    composable(DestinationsStarWarsApp.myMovieListRoute.rota) {
+        val viewModel = hiltViewModel<MyMovieListViewModel>()
         val uiState by viewModel.uiState.collectAsState()
         val scope = rememberCoroutineScope()
         MyListScreen(
@@ -37,5 +37,5 @@ fun NavGraphBuilder.myListScreen(
 fun NavController.navigateToMyList(
     navOptions: NavOptions? = null
 ) {
-    navigate(DestinationsStarWarsApp.myListRoute.rota, navOptions)
+    navigate(DestinationsStarWarsApp.myMovieListRoute.rota, navOptions)
 }
