@@ -20,7 +20,7 @@ sealed class ItemsMenuLateral(
     object ItemVehicles: ItemsMenuLateral(
         Icons.Outlined.DirectionsCar,
         "Vehicle list",
-        DestinationsStarWarsApp.homeRoute.rota
+        DestinationsStarWarsApp.vehicleRoute.rota
     )
 
     object ItemSpecies: ItemsMenuLateral(
