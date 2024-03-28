@@ -39,14 +39,21 @@ fun StarWarsNavHost(
         )
         vehicleScreen(
             onNavigateToVehicleDetails = { vehicle ->
-                navController.navigateToMovieDetails(vehicle.name)
+                navController.navigateToVehicleDetails(vehicle.name)
             },
         )
+        navController.currentBackStackEntry?.savedStateHandle?.let {
+            vehicleDetails(it)
+        }
     }
 }
 
 fun NavHostController.navigateToMovieDetails(idMovie: String) {
     navigateDirectly("${DestinationsStarWarsApp.MovieDetails.rota}/$idMovie")
+}
+
+fun NavHostController.navigateToVehicleDetails(idVehicle: String) {
+    navigateDirectly("${DestinationsStarWarsApp.VehicleDetails.rota}/$idVehicle")
 }
 
 fun NavHostController.navigateDirectly(rota: String) = this.navigate(rota) {
