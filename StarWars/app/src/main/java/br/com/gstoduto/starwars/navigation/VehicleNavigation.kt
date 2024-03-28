@@ -8,8 +8,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Vehicle
-import br.com.gstoduto.starwars.ui.screens.VehicleScreen
-import br.com.gstoduto.starwars.ui.viewmodels.VehicleViewModel
+import br.com.gstoduto.starwars.ui.screens.vehicle.VehicleScreen
+import br.com.gstoduto.starwars.ui.viewmodels.vehicle.VehicleViewModel
 
 fun NavGraphBuilder.vehicleScreen(
     onNavigateToVehicleDetails: (Vehicle) -> Unit,

@@ -8,8 +8,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.ui.screens.MovieScreen
-import br.com.gstoduto.starwars.ui.viewmodels.MovieViewModel
+import br.com.gstoduto.starwars.ui.screens.movie.MovieScreen
+import br.com.gstoduto.starwars.ui.viewmodels.movie.MovieViewModel
 
 fun NavGraphBuilder.movieScreen(
     onNavigateToMovieDetails: (Movie) -> Unit,

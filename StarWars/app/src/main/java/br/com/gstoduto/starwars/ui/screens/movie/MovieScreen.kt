@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens
+package br.com.gstoduto.starwars.ui.screens.movie
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,29 +27,30 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.gstoduto.starwars.R
-import br.com.gstoduto.starwars.model.Vehicle
-import br.com.gstoduto.starwars.sampleData.sampleVehicles
-import br.com.gstoduto.starwars.ui.components.getIndexVehicleImage
+import br.com.gstoduto.starwars.model.Movie
+import br.com.gstoduto.starwars.sampleData.sampleMovies
+import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.VehicleUiState
+import br.com.gstoduto.starwars.ui.uistates.movie.MovieUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
-fun VehicleScreen(
-    uiState: VehicleUiState,
-    onVehicleClick: (Vehicle) -> Unit,
-    onRetryLoadVehicles: () -> Unit,
+fun MovieScreen(
+    uiState: MovieUiState,
+    onMovieClick: (Movie) -> Unit,
+    onRetryLoadMovies: () -> Unit,
     columns: Int,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        VehicleUiState.Loading -> {
+        MovieUiState.Loading -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
@@ -57,8 +58,8 @@ fun VehicleScreen(
             }
         }
 
-        is VehicleUiState.Success -> {
-            val vehicles = uiState.vehicles
+        is MovieUiState.Success -> {
+            val movies = uiState.movies
             Column(
                 modifier
                     .fillMaxSize()
@@ -77,7 +78,7 @@ fun VehicleScreen(
                             contentScale = ContentScale.Crop
                         )
                         Text(
-                            text = "H o m e / V e h i c l e s",
+                            text = "H o m e / F i l m s",
                             Modifier
                                 .fillMaxWidth()
                                 .padding(start = 16.dp),
@@ -93,9 +94,9 @@ fun VehicleScreen(
                     verticalItemSpacing = 16.dp,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(vehicles) { vehicle ->
-                        val urlImage = getIndexVehicleImage(vehicle)
-                        val image = "${Constants.BASE_URL_VEHICLE_IMAGE}$urlImage.jpg"
+                    items(movies) { movie ->
+                        val urlImage = getIndexMovieImage(movie)
+                        val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
                         Column {
                             AsyncImage(
@@ -105,20 +106,21 @@ fun VehicleScreen(
                                     .fillMaxWidth()
                                     .fillMaxHeight()
                                     .clickable {
-                                        onVehicleClick(vehicle)
+                                        onMovieClick(movie)
                                     },
                                 placeholder = ColorPainter(Color.Gray),
                                 contentScale = ContentScale.Crop
                             )
                             Text(
-                                text = vehicle.name,
+                                text = "Episode ${movie.episodeId}: ${movie.title}",
                                 Modifier
                                     .background(color = Color.White)
                                     .fillMaxWidth()
                                     .padding(start = 4.dp),
                                 style = TextStyle.Default.copy(
-                                    fontSize = 10.sp,
-                                    color = Color.Black
+                                    fontSize = 16.sp,
+                                    color = Color.Black,
+                                    fontWeight = FontWeight.Bold
                                 )
                             )
                         }
@@ -127,19 +129,19 @@ fun VehicleScreen(
             }
         }
 
-        is VehicleUiState.Empty -> {
+        is MovieUiState.Empty -> {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Nenhum veiculo encontrado!",
+                    text = "Nenhuma filme encontrado!",
                     style = TextStyle.Default.copy(
                         fontSize = MaterialTheme.typography.titleLarge.fontSize
                     )
                 )
-                TextButton(onClick = { onRetryLoadVehicles() }) {
+                TextButton(onClick = { onRetryLoadMovies() }) {
                     Text(text = "Tentar buscar novamente")
                 }
             }
@@ -149,16 +151,16 @@ fun VehicleScreen(
 
 @Preview
 @Composable
-fun VehicleScreenPreview() {
+fun MovieScreenPreview() {
     StarWarsTheme {
         Surface {
             Surface(color = MaterialTheme.colorScheme.background) {
-                VehicleScreen(
-                    uiState = VehicleUiState.Success(
-                        vehicles = sampleVehicles
+                MovieScreen(
+                    uiState = MovieUiState.Success(
+                        movies = sampleMovies
                     ),
-                    onRetryLoadVehicles = {},
-                    onVehicleClick = {},
+                    onRetryLoadMovies = {},
+                    onMovieClick = {},
                     columns = 2
                 )
             }

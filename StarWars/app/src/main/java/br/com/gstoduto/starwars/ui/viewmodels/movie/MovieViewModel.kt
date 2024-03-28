@@ -1,9 +1,9 @@
-package br.com.gstoduto.starwars.ui.viewmodels
+package br.com.gstoduto.starwars.ui.viewmodels.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.gstoduto.starwars.repositories.VehicleRepository
-import br.com.gstoduto.starwars.ui.uistates.VehicleUiState
+import br.com.gstoduto.starwars.ui.uistates.movie.MovieUiState
+import br.com.gstoduto.starwars.ui.use_case.movie.GetMoviesUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VehicleViewModel @Inject constructor(
-    private val repository: VehicleRepository
+class MovieViewModel @Inject constructor(
+    private val getMoviesUseCase: GetMoviesUseCaseImpl
 ) : ViewModel() {
 
     private var currentUiStateJob: Job? = null
-    private val _uiState = MutableStateFlow<VehicleUiState>(
-        VehicleUiState.Loading
+    private val _uiState = MutableStateFlow<MovieUiState>(
+        MovieUiState.Loading
     )
     val uiState = _uiState.asStateFlow()
 
@@ -32,17 +32,17 @@ class VehicleViewModel @Inject constructor(
     private fun loadUiState() {
         currentUiStateJob?.cancel()
         currentUiStateJob = viewModelScope.launch {
-            repository.findVehicles().onStart {
-                _uiState.update { VehicleUiState.Loading }
-            }.collectLatest { vehicles ->
-                if (vehicles.isEmpty()) {
+            getMoviesUseCase.findMovies().onStart {
+                _uiState.update { MovieUiState.Loading }
+            }.collectLatest { movies ->
+                if (movies.isEmpty()) {
                     _uiState.update {
-                        VehicleUiState.Empty
+                        MovieUiState.Empty
                     }
                 } else {
                     _uiState.update {
-                        VehicleUiState.Success(
-                            vehicles = vehicles
+                        MovieUiState.Success(
+                            movies = movies
                         )
                     }
                 }
@@ -50,7 +50,7 @@ class VehicleViewModel @Inject constructor(
         }
     }
 
-    fun loadVehicles() {
+    fun loadMovies() {
         loadUiState()
     }
 }

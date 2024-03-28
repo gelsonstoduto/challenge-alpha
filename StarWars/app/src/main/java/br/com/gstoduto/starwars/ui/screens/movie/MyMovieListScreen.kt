@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens
+package br.com.gstoduto.starwars.ui.screens.movie
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,7 +39,7 @@ import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
 import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.MyMovieListUiState
+import br.com.gstoduto.starwars.ui.uistates.movie.MyMovieListUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 

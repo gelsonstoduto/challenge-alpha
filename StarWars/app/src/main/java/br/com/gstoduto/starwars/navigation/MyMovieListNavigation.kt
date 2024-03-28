@@ -9,8 +9,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.ui.screens.MyListScreen
-import br.com.gstoduto.starwars.ui.viewmodels.MyMovieListViewModel
+import br.com.gstoduto.starwars.ui.screens.movie.MyListScreen
+import br.com.gstoduto.starwars.ui.viewmodels.movie.MyMovieListViewModel
 import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.myMovieListScreen(

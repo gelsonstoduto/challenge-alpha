@@ -4,7 +4,7 @@ import android.util.Log
 import br.com.gstoduto.starwars.database.dao.MovieDao
 import br.com.gstoduto.starwars.database.entities.MovieEntity
 import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.network.model.toMovieEntity
+import br.com.gstoduto.starwars.network.model.movie.toMovieEntity
 import br.com.gstoduto.starwars.network.services.MovieService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +43,7 @@ class MovieRepository @Inject constructor(
         dao.removeFromMyList(id)
     }
 
-    fun myList(): Flow<List<MovieEntity>>{
+    fun myList(): Flow<List<MovieEntity>> {
         return dao.myList()
     }
 }

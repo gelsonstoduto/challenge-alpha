@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.network.model
+package br.com.gstoduto.starwars.network.model.movie
 
 import br.com.gstoduto.starwars.database.entities.MovieEntity
 
