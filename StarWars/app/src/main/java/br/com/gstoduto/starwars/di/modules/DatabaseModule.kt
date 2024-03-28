@@ -25,7 +25,7 @@ object DatabaseModule {
             context,
             StarWarsDatabase::class.java,
             "starwars.db"
-        ).fallbackToDestructiveMigration()
+        )  //.fallbackToDestructiveMigration()
             .build()
     }
 

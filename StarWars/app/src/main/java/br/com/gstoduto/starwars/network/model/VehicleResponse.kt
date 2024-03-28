@@ -10,6 +10,8 @@ data class VehicleResponse(
     val costInCredits: String,
     val maxAtmospheringSpeed: String,
     val length: String,
+    val cargoCapacity: String,
+    val consumables: String,
     val passengers: String,
     val url: String,
     val inMyList: Boolean
@@ -24,6 +26,8 @@ fun VehicleResponse.toVehicleEntity(): VehicleEntity {
         costInCredits = costInCredits,
         maxAtmospheringSpeed = maxAtmospheringSpeed,
         length = length,
+        cargoCapacity = cargoCapacity,
+        consumables = consumables,
         passengers = passengers,
         url = url,
         inMyList = inMyList
