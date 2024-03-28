@@ -25,7 +25,7 @@ fun StarWarsNavHost(
         navController.currentBackStackEntry?.savedStateHandle?.let {
             movieDetails(it)
         }
-        myListScreen(
+        myMovieListScreen(
             onNavigateToHome = {
                 navController.navigateToHome(navOptions {
                     popUpTo(navController.graph.findStartDestination().id) {
@@ -36,6 +36,11 @@ fun StarWarsNavHost(
             onNavigateToMovieDetails = {
                 navController.navigateToMovieDetails(it.title)
             }
+        )
+        vehicleScreen(
+            onNavigateToVehicleDetails = { vehicle ->
+                navController.navigateToMovieDetails(vehicle.name)
+            },
         )
     }
 }
@@ -68,7 +73,7 @@ fun NavController.navigateToBottomAppBarItem(
             navigateToMyList(
                 navOptions {
                     launchSingleTop = true
-                    popUpTo(DestinationsStarWarsApp.myListRoute.rota)
+                    popUpTo(DestinationsStarWarsApp.myMovieListRoute.rota)
                 }
             )
         }
