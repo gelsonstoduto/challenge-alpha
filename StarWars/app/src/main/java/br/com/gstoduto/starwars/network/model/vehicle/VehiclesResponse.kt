@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.network.model
+package br.com.gstoduto.starwars.network.model.vehicle
 
 data class VehiclesResponse(
     val count: Int,

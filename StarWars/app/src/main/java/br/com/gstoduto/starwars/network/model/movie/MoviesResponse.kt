@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.network.model
+package br.com.gstoduto.starwars.network.model.movie
 
 data class MoviesResponse(
     val count: Int,

@@ -4,7 +4,7 @@ import android.util.Log
 import br.com.gstoduto.starwars.database.dao.VehicleDao
 import br.com.gstoduto.starwars.database.entities.VehicleEntity
 import br.com.gstoduto.starwars.model.Vehicle
-import br.com.gstoduto.starwars.network.model.toVehicleEntity
+import br.com.gstoduto.starwars.network.model.vehicle.toVehicleEntity
 import br.com.gstoduto.starwars.network.services.VehicleService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,11 +1,12 @@
-package br.com.gstoduto.starwars.ui.viewmodels
+package br.com.gstoduto.starwars.ui.viewmodels.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.gstoduto.starwars.database.entities.toMovie
 import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.repositories.MovieRepository
-import br.com.gstoduto.starwars.ui.uistates.MyMovieListUiState
+import br.com.gstoduto.starwars.ui.uistates.movie.MyMovieListUiState
+import br.com.gstoduto.starwars.ui.use_case.movie.GetMyMovieListUseCaseImpl
+import br.com.gstoduto.starwars.ui.use_case.movie.RemoveMovieFromMyListUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyMovieListViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val getMyMovieListUseCase: GetMyMovieListUseCaseImpl,
+    private val removeMovieFromMyListUseCase: RemoveMovieFromMyListUseCaseImpl
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MyMovieListUiState>(
@@ -31,7 +33,7 @@ class MyMovieListViewModel @Inject constructor(
 
     private suspend fun loadUiState() {
         val movies = mutableListOf<Movie>()
-        repository.myList().collect {
+        getMyMovieListUseCase.getMyListMovies().collect {
             it.listIterator().forEach { movieEntity ->
                 movies.add(movieEntity.toMovie())
             }
@@ -46,7 +48,7 @@ class MyMovieListViewModel @Inject constructor(
     }
 
     suspend fun removeFromMyList(movie: Movie) {
-        repository.removeFromMyList(movie.title)
+        removeMovieFromMyListUseCase.removeMovieFromMyList(movie.title)
     }
 
     suspend fun loadMyList() {
