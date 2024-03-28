@@ -118,7 +118,7 @@ fun MovieDetailsScreen(
                             movie.openingCrawl?.let {
                                 Text(
                                     text = "Opening Crawl: ${it.replace("\r\n", " ")}",
-                                    maxLines = 10,
+                                    maxLines = 6,
                                     overflow = TextOverflow.Ellipsis,
                                     textAlign = TextAlign.Justify
                                 )
