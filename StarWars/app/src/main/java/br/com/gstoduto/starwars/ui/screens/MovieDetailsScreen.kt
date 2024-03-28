@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovieAdded
 import br.com.gstoduto.starwars.sampleData.sampleMovieRemoved
+import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
 import br.com.gstoduto.starwars.ui.uistates.MovieDetailsUiState
 import br.com.gstoduto.starwars.util.Constants
@@ -70,11 +71,7 @@ fun MovieDetailsScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     movie?.let {
-                        val urlImage = movie.url
-                            .substring(movie.url.length - 3)
-                            .split("/")
-                            .drop(1)
-                            .joinToString("")
+                        val urlImage = getIndexMovieImage(movie)
                         val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
                         AsyncImage(

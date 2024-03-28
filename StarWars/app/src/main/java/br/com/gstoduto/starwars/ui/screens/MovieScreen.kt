@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import br.com.gstoduto.starwars.R
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
+import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
 import br.com.gstoduto.starwars.ui.uistates.MovieUiState
 import br.com.gstoduto.starwars.util.Constants
@@ -93,11 +94,7 @@ fun MovieScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(movies) { movie ->
-                        val urlImage = movie.url
-                            .substring(movie.url.length - 3)
-                            .split("/")
-                            .drop(1)
-                            .joinToString("")
+                        val urlImage = getIndexMovieImage(movie)
                         val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
                         Column {
@@ -130,14 +127,14 @@ fun MovieScreen(
             }
         }
 
-        MovieUiState.Empty -> {
+        is MovieUiState.Empty -> {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Nenhuma seção encontrada",
+                    text = "Nenhuma filme encontrado!",
                     style = TextStyle.Default.copy(
                         fontSize = MaterialTheme.typography.titleLarge.fontSize
                     )
@@ -152,7 +149,7 @@ fun MovieScreen(
 
 @Preview
 @Composable
-fun HomeScreenPreview() {
+fun MovieScreenPreview() {
     StarWarsTheme {
         Surface {
             Surface(color = MaterialTheme.colorScheme.background) {
