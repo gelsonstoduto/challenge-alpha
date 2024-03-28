@@ -15,7 +15,7 @@ fun StarWarsNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinationsStarWarsApp.homeRoute.rota
+        startDestination = DestinationsStarWarsApp.movieRoute.rota
     ) {
         movieScreen(
             onNavigateToMovieDetails = { movie ->
@@ -65,7 +65,7 @@ fun NavController.navigateToBottomAppBarItem(
             navigateToHome(
                 navOptions {
                     launchSingleTop = true
-                    popUpTo(DestinationsStarWarsApp.homeRoute.rota)
+                    popUpTo(DestinationsStarWarsApp.movieRoute.rota)
                 }
             )
         }

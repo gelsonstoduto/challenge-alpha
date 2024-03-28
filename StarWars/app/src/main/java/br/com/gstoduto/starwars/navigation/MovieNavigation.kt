@@ -14,7 +14,7 @@ import br.com.gstoduto.starwars.ui.viewmodels.MovieViewModel
 fun NavGraphBuilder.movieScreen(
     onNavigateToMovieDetails: (Movie) -> Unit,
 ) {
-    composable(DestinationsStarWarsApp.homeRoute.rota) {
+    composable(DestinationsStarWarsApp.movieRoute.rota) {
         val viewModel = hiltViewModel<MovieViewModel>()
         val uiState by viewModel.uiState.collectAsState()
         MovieScreen(
@@ -31,5 +31,5 @@ fun NavGraphBuilder.movieScreen(
 fun NavController.navigateToHome(
     navOptions: NavOptions? = null
 ) {
-    navigate(DestinationsStarWarsApp.homeRoute.rota, navOptions)
+    navigate(DestinationsStarWarsApp.movieRoute.rota, navOptions)
 }

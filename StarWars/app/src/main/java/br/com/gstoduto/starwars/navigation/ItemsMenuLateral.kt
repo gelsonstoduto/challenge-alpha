@@ -14,7 +14,7 @@ sealed class ItemsMenuLateral(
     object ItemMovies: ItemsMenuLateral(
         Icons.Outlined.Movie,
         "Film List",
-        DestinationsStarWarsApp.homeRoute.rota
+        DestinationsStarWarsApp.movieRoute.rota
     )
 
     object ItemVehicles: ItemsMenuLateral(
@@ -26,7 +26,7 @@ sealed class ItemsMenuLateral(
     object ItemSpecies: ItemsMenuLateral(
         Icons.Outlined.Adjust,
         "Species list",
-        DestinationsStarWarsApp.homeRoute.rota
+        DestinationsStarWarsApp.movieRoute.rota
     )
 }
 

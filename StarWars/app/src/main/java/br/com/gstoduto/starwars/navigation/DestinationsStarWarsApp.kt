@@ -5,7 +5,7 @@ import androidx.navigation.navArgument
 import br.com.gstoduto.starwars.util.Constants.ID_MOVIE
 
 sealed class DestinationsStarWarsApp(val rota: String) {
-    object homeRoute : DestinationsStarWarsApp("home")
+    object movieRoute : DestinationsStarWarsApp("movie")
     object myMovieListRoute : DestinationsStarWarsApp("myMovieList")
 
     object MovieDetails {
