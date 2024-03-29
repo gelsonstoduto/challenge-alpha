@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -52,6 +53,9 @@ object RestApiModule {
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .connectTimeout(30, TimeUnit.SECONDS) // Tempo limite de conexão de 30 segundos
+            .readTimeout(30, TimeUnit.SECONDS) // Tempo limite de leitura de 30 segundos
+            .writeTimeout(30, TimeUnit.SECONDS) // Tempo limite de escrita de 30 segundos
             .build()
     }
 }
