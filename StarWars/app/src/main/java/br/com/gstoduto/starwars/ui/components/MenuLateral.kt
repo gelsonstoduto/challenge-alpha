@@ -76,7 +76,7 @@ fun MenuLateral(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)
-                            .background(Color(0xFF045B7C)), contentAlignment = Alignment.Center
+                            .background(Color(0xFFB16D08)), contentAlignment = Alignment.Center
                     ) {
                         Column(
                             Modifier.wrapContentSize(),

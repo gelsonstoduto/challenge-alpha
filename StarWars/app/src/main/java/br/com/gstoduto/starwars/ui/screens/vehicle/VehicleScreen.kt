@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import br.com.gstoduto.starwars.R
 import br.com.gstoduto.starwars.model.Vehicle
 import br.com.gstoduto.starwars.sampleData.sampleVehicles
-import br.com.gstoduto.starwars.ui.components.getIndexVehicleImage
+import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
 import br.com.gstoduto.starwars.ui.uistates.vehicle.VehicleUiState
 import br.com.gstoduto.starwars.util.Constants
@@ -94,7 +94,7 @@ fun VehicleScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(vehicles) { vehicle ->
-                        val urlImage = getIndexVehicleImage(vehicle)
+                        val urlImage = getIndexFromUrl(vehicle.url, "/vehicles/")
                         val image = "${Constants.BASE_URL_VEHICLE_IMAGE}$urlImage.jpg"
 
                         Column {

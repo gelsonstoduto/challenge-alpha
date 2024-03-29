@@ -9,12 +9,13 @@ import br.com.gstoduto.starwars.database.entities.MovieEntity
 import br.com.gstoduto.starwars.database.entities.VehicleEntity
 
 @Database(
-    version = 3,
+    version = 4,
     entities = [MovieEntity::class, VehicleEntity::class],
     exportSchema = true,
     autoMigrations = [
         AutoMigration(1, 2),
-        AutoMigration(2, 3),]
+        AutoMigration(2, 3),
+        AutoMigration(3, 4),]
 )
 
 abstract class StarWarsDatabase : RoomDatabase() {

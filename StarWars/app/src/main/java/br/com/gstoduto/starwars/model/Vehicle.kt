@@ -3,6 +3,7 @@ package br.com.gstoduto.starwars.model
 import androidx.room.ColumnInfo
 
 data class Vehicle(
+    @ColumnInfo(name = "id") var id: Long  = 0L,
     val name: String,
     val model: String,
     val manufacturer: String,

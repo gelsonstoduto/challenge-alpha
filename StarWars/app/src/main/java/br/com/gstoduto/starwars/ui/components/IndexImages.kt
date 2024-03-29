@@ -1,19 +1,20 @@
 package br.com.gstoduto.starwars.ui.components
 
 import androidx.compose.runtime.Composable
-import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.model.Vehicle
 
 @Composable
-fun getIndexMovieImage(movie: Movie) = movie.url
-    .substring(movie.url.length - 4)
-    .split("/")
+fun getIndexFromUrl(index: String, token: String) = index
+        .substring(index.length - (token.length+7))
+        .split(token)
+        .drop(1)
+        .joinToString("")
+        .split("/").dropLast(1)
+        .joinToString("")
+
+fun getIndex(index: String, token: String) = index
+    .substring(index.length - (token.length+7))
+    .split(token)
     .drop(1)
     .joinToString("")
-
-@Composable
-fun getIndexVehicleImage(vehicle: Vehicle) = vehicle.url
-    .substring(vehicle.url.length - 4)
-    .split("/")
-    .drop(1)
+    .split("/").dropLast(1)
     .joinToString("")

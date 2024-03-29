@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetVehicleUseCaseImpl @Inject constructor(
     private val repository: VehicleRepository,
 ): GetVehicleUseCase {
-    override suspend fun findVehicle(id: String): Flow<VehicleEntity> {
+    override suspend fun findVehicle(id: String): Flow<VehicleEntity?> {
         return repository.findVehicle(id)
     }
 }

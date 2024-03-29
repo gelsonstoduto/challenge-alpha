@@ -1,6 +1,7 @@
 package br.com.gstoduto.starwars.network.model.vehicle
 
 import br.com.gstoduto.starwars.database.entities.VehicleEntity
+import br.com.gstoduto.starwars.ui.components.getIndex
 
 data class VehicleResponse(
     val name: String,
@@ -19,6 +20,7 @@ data class VehicleResponse(
 
 fun VehicleResponse.toVehicleEntity(): VehicleEntity {
     return VehicleEntity(
+        id = getIndex(url, "/vehicles/").toLong(),
         name = name,
         model = model,
         manufacturer = manufacturer,

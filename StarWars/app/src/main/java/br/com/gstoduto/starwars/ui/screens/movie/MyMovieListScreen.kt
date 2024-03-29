@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import br.com.gstoduto.starwars.model.Movie
 import br.com.gstoduto.starwars.sampleData.sampleMovies
-import br.com.gstoduto.starwars.ui.components.getIndexMovieImage
+import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
 import br.com.gstoduto.starwars.ui.uistates.movie.MyMovieListUiState
 import br.com.gstoduto.starwars.util.Constants
@@ -116,7 +116,7 @@ fun MyListScreen(
                                         )
                                     )
                                 }
-                                val urlImage = getIndexMovieImage(movie)
+                                val urlImage = getIndexFromUrl(movie.url, "/films/")
                                 val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
 
                                 AsyncImage(

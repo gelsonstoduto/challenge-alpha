@@ -37,8 +37,8 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadMovie(title: String) {
-        title.let {
+    private suspend fun loadMovie(id: String) {
+        id.let {
             val movie = getMovieUseCaseImpl.findMovie(it)
 
             movie.collect { movieEntity ->
@@ -50,10 +50,10 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     suspend fun addMovieToMyList(movie: Movie) {
-        addMovieToMyListUseCase.addMovieToMyList(movie.title)
+        addMovieToMyListUseCase.addMovieToMyList(movie.id.toString())
     }
 
     suspend fun removeMovieFromMyList(movie: Movie) {
-        removeMovieFromMyListUseCase.removeMovieFromMyList(movie.title)
+        removeMovieFromMyListUseCase.removeMovieFromMyList(movie.id.toString())
     }
 }

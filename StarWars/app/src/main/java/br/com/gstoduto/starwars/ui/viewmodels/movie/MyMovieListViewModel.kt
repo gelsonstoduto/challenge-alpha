@@ -48,7 +48,7 @@ class MyMovieListViewModel @Inject constructor(
     }
 
     suspend fun removeFromMyList(movie: Movie) {
-        removeMovieFromMyListUseCase.removeMovieFromMyList(movie.title)
+        removeMovieFromMyListUseCase.removeMovieFromMyList(movie.id.toString())
     }
 
     suspend fun loadMyList() {

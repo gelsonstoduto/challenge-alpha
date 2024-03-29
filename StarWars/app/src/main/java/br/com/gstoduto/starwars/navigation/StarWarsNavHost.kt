@@ -19,7 +19,7 @@ fun StarWarsNavHost(
     ) {
         movieScreen(
             onNavigateToMovieDetails = { movie ->
-                navController.navigateToMovieDetails(movie.title)
+                navController.navigateToMovieDetails(movie.id.toString())
             },
         )
         navController.currentBackStackEntry?.savedStateHandle?.let {
@@ -34,12 +34,12 @@ fun StarWarsNavHost(
                 })
             },
             onNavigateToMovieDetails = {
-                navController.navigateToMovieDetails(it.title)
+                navController.navigateToMovieDetails(it.id.toString())
             }
         )
         vehicleScreen(
             onNavigateToVehicleDetails = { vehicle ->
-                navController.navigateToVehicleDetails(vehicle.name)
+                navController.navigateToVehicleDetails(vehicle.id.toString())
             },
         )
         navController.currentBackStackEntry?.savedStateHandle?.let {

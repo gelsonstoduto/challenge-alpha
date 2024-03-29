@@ -37,23 +37,22 @@ class VehicleDetailsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadVehicle(title: String) {
-        title.let {
-            val vehicle = getVehicleUseCase.findVehicle(it)
-
+    private suspend fun loadVehicle(id: String) {
+        val vehicle = getVehicleUseCase.findVehicle(id)
+        vehicle.let {
             vehicle.collect { vehicleEntity ->
                 _uiState.value = _uiState.value.copy(
-                    vehicle = vehicleEntity.toVehicle()
+                    vehicle = vehicleEntity?.toVehicle()
                 )
             }
         }
     }
 
     suspend fun addVehicleToMyList(vehicle: Vehicle) {
-        addVehicleToMyListUseCase.addVehicleToMyList(vehicle.name)
+        addVehicleToMyListUseCase.addVehicleToMyList(vehicle.id.toString())
     }
 
     suspend fun removeVehicleFromMyList(vehicle: Vehicle) {
-        removeVehicleFromMyListUseCase.removeVehicleFromMyList(vehicle.name)
+        removeVehicleFromMyListUseCase.removeVehicleFromMyList(vehicle.id.toString())
     }
 }

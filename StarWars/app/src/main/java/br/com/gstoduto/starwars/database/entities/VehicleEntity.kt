@@ -8,6 +8,7 @@ import br.com.gstoduto.starwars.model.Vehicle
 @Entity(tableName = "vehicles")
 class VehicleEntity(
     @PrimaryKey
+    @ColumnInfo(name = "id", defaultValue = "0") var id: Long,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "model") var model: String,
     @ColumnInfo(name = "manufacturer") var manufacturer: String,
@@ -23,6 +24,7 @@ class VehicleEntity(
 )
 
 fun VehicleEntity.toVehicle() = Vehicle(
+    id = id,
     name = name,
     model = model,
     manufacturer = manufacturer,
