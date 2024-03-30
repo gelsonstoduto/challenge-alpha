@@ -7,6 +7,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import br.com.gstoduto.starwars.navigation.movie.movieDetails
+import br.com.gstoduto.starwars.navigation.movie.movieScreen
+import br.com.gstoduto.starwars.navigation.movie.myMovieListScreen
+import br.com.gstoduto.starwars.navigation.movie.navigateToMovie
+import br.com.gstoduto.starwars.navigation.movie.navigateToMyMovieList
+import br.com.gstoduto.starwars.navigation.specie.navigateToSpecie
+import br.com.gstoduto.starwars.navigation.specie.specieScreen
+import br.com.gstoduto.starwars.navigation.vehicle.myVehicleListScreen
+import br.com.gstoduto.starwars.navigation.vehicle.navigateToMyVehicleList
+import br.com.gstoduto.starwars.navigation.vehicle.navigateToVehicle
+import br.com.gstoduto.starwars.navigation.vehicle.vehicleDetails
+import br.com.gstoduto.starwars.navigation.vehicle.vehicleScreen
 import br.com.gstoduto.starwars.ui.components.BottomAppBarItem
 
 @Composable

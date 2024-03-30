@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.navigation
+package br.com.gstoduto.starwars.navigation.vehicle
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -9,6 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Vehicle
+import br.com.gstoduto.starwars.navigation.DestinationsStarWarsApp
 import br.com.gstoduto.starwars.ui.screens.vehicle.MyVehicleListScreen
 import br.com.gstoduto.starwars.ui.viewmodels.vehicle.MyVehicleListViewModel
 import kotlinx.coroutines.launch

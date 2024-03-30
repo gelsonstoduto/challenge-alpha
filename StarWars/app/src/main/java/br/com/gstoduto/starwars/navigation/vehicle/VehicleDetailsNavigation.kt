@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.navigation
+package br.com.gstoduto.starwars.navigation.vehicle
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import br.com.gstoduto.starwars.navigation.DestinationsStarWarsApp
 import br.com.gstoduto.starwars.ui.screens.vehicle.VehicleDetailsScreen
 import br.com.gstoduto.starwars.ui.viewmodels.vehicle.VehicleDetailsViewModel
 import br.com.gstoduto.starwars.util.Constants.ID_VEHICLE
