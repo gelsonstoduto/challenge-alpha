@@ -59,6 +59,11 @@ fun StarWarsNavHost(
                 navController.navigateToVehicleDetails(it.id.toString())
             }
         )
+        specieScreen(
+            onNavigateToSpecieDetails = { specie ->
+                navController.navigateToSpecieDetails(specie.id.toString())
+            },
+        )
     }
 }
 
@@ -68,6 +73,10 @@ fun NavHostController.navigateToMovieDetails(idMovie: String) {
 
 fun NavHostController.navigateToVehicleDetails(idVehicle: String) {
     navigateDirectly("${DestinationsStarWarsApp.VehicleDetails.rota}/$idVehicle")
+}
+
+fun NavHostController.navigateToSpecieDetails(idSpecie: String) {
+    navigateDirectly("${DestinationsStarWarsApp.SpecieDetails.rota}/$idSpecie")
 }
 
 fun NavHostController.navigateDirectly(rota: String) = this.navigate(rota) {
@@ -111,6 +120,23 @@ fun NavController.navigateToBottomAppBarItem(
                 navOptions {
                     launchSingleTop = true
                     popUpTo(DestinationsStarWarsApp.myVehicleListRoute.rota)
+                }
+            )
+        }
+        BottomAppBarItem.Vehicle -> {
+            navigateToSpecie(
+                navOptions {
+                    launchSingleTop = true
+                    popUpTo(DestinationsStarWarsApp.specieRoute.rota)
+                }
+            )
+        }
+
+        else -> {
+            navigateToMovie(
+                navOptions {
+                    launchSingleTop = true
+                    popUpTo(DestinationsStarWarsApp.movieRoute.rota)
                 }
             )
         }

@@ -36,9 +36,6 @@ val randomEyeColors
 val randomAverageLifespan
     get() = LoremIpsum(Random.nextInt(1, 5)).values
         .first().toString()
-val randomHomeworld
-    get() = LoremIpsum(Random.nextInt(1, 5)).values
-        .first().toString()
 val randomLanguage
     get() = LoremIpsum(Random.nextInt(1, 5)).values
         .first().toString()
@@ -53,9 +50,8 @@ val sampleSpecies = List(15) {
         hairColors = randomHairColors,
         eyeColors = randomEyeColors,
         averageLifespan = randomAverageLifespan,
-        homeworld = randomHomeworld,
         language = randomLanguage,
-        url = randomImageVehicle,
+        url = randomImageSpecie,
         inMyList = true
     )
 }
@@ -70,7 +66,6 @@ val sampleSpecieAdded =
         hairColors = randomHairColors,
         eyeColors = randomEyeColors,
         averageLifespan = randomAverageLifespan,
-        homeworld = randomHomeworld,
         language = randomLanguage,
         url = randomImageVehicle,
         inMyList = false
@@ -86,7 +81,6 @@ val sampleSpecieRemoved =
         hairColors = randomHairColors,
         eyeColors = randomEyeColors,
         averageLifespan = randomAverageLifespan,
-        homeworld = randomHomeworld,
         language = randomLanguage,
         url = randomImageVehicle,
         inMyList = true

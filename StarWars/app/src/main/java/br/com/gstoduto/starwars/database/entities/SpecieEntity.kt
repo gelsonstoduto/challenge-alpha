@@ -17,7 +17,6 @@ class SpecieEntity(
     @ColumnInfo(name = "hair_colors") var hairColors: String?  = null,
     @ColumnInfo(name = "eye_colors") var eyeColors: String?  = null,
     @ColumnInfo(name = "average_lifespan") var averageLifespan: String?  = null,
-    val homeworld: String,
     val language: String,
     val url: String,
     val inMyList: Boolean = false
@@ -33,7 +32,6 @@ fun SpecieEntity.toSpecie() = Specie(
     hairColors = hairColors,
     eyeColors = eyeColors,
     averageLifespan = averageLifespan,
-    homeworld = homeworld,
     language = language,
     url = url,
     inMyList = inMyList

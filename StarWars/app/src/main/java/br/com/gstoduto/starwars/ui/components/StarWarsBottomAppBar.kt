@@ -2,8 +2,10 @@ package br.com.gstoduto.starwars.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Android
+import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,15 +28,21 @@ sealed class BottomAppBarItem(
     val category: String
 ) {
     object Movie : BottomAppBarItem(
-        Icons.Default.Home,
+        Icons.Default.Movie,
         "Films",
         "movie.myMovieList.movieDetails"
     )
 
     object Vehicle : BottomAppBarItem(
-        Icons.Default.Home,
+        Icons.Default.DirectionsCar,
         "Vehicles",
         "vehicle.myVehicleList.vehicleDetails"
+    )
+
+    object Specie : BottomAppBarItem(
+        Icons.Default.Android,
+        "Species",
+        "specie.mySpecieList.specieDetails"
     )
 
     object MyMovieList : BottomAppBarItem(
@@ -99,6 +107,7 @@ fun StarWarsBottomAppBarPreview() {
                 items = listOf(
                     BottomAppBarItem.Movie,
                     BottomAppBarItem.Vehicle,
+                    BottomAppBarItem.Specie,
                     BottomAppBarItem.MyMovieList,
                     BottomAppBarItem.MyVehicleList,
                 )

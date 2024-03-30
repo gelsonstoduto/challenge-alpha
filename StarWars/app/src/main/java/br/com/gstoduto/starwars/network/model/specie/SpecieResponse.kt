@@ -12,7 +12,6 @@ data class SpecieResponse(
     val hair_colors: String,
     val eye_colors: String,
     val average_lifespan: String,
-    val homeworld: String,
     val language: String,
     val url: String,
     val inMyList: Boolean = false
@@ -29,7 +28,6 @@ fun SpecieResponse.toSpecieEntity(): SpecieEntity {
         hairColors = hair_colors,
         eyeColors = eye_colors,
         averageLifespan = average_lifespan,
-        homeworld = homeworld,
         language = language,
         url = url,
         inMyList = inMyList

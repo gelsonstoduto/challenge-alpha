@@ -12,7 +12,6 @@ data class Specie(
     @ColumnInfo(name = "hair_colors") var hairColors: String?  = null,
     @ColumnInfo(name = "eye_colors") var eyeColors: String?  = null,
     @ColumnInfo(name = "average_lifespan") var averageLifespan: String?  = null,
-    val homeworld: String,
     val language: String,
     val url: String,
     val inMyList: Boolean = false

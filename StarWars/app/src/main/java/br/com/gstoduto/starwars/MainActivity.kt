@@ -72,6 +72,7 @@ fun StarWarsApp(
             DestinationsStarWarsApp.vehicleRoute.rota -> BottomAppBarItem.Vehicle
             DestinationsStarWarsApp.myVehicleListRoute.rota -> BottomAppBarItem.MyVehicleList
             DestinationsStarWarsApp.myVehicleDetails.rota -> BottomAppBarItem.Vehicle
+            DestinationsStarWarsApp.specieRoute.rota -> BottomAppBarItem.Specie
             else -> BottomAppBarItem.Movie
         }
         mutableStateOf(item)
@@ -81,6 +82,7 @@ fun StarWarsApp(
         listOf(
             BottomAppBarItem.Movie,
             BottomAppBarItem.Vehicle,
+            BottomAppBarItem.Specie,
             BottomAppBarItem.MyMovieList,
             BottomAppBarItem.MyVehicleList,
         )

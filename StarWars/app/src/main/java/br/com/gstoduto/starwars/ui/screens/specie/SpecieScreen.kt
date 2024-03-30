@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens.movie
+package br.com.gstoduto.starwars.ui.screens.specie
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,30 +27,29 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.gstoduto.starwars.R
-import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.sampleData.sampleMovies
+import br.com.gstoduto.starwars.model.Specie
+import br.com.gstoduto.starwars.sampleData.sampleSpecies
 import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.movie.MovieUiState
+import br.com.gstoduto.starwars.ui.uistates.specie.SpecieUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
-fun MovieScreen(
-    uiState: MovieUiState,
-    onMovieClick: (Movie) -> Unit,
-    onRetryLoadMovies: () -> Unit,
+fun SpecieScreen(
+    uiState: SpecieUiState,
+    onSpecieClick: (Specie) -> Unit,
+    onRetryLoadSpecies: () -> Unit,
     columns: Int,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        is MovieUiState.Loading -> {
+        is SpecieUiState.Loading -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
@@ -58,8 +57,8 @@ fun MovieScreen(
             }
         }
 
-        is MovieUiState.Success -> {
-            val movies = uiState.movies
+        is SpecieUiState.Success -> {
+            val species = uiState.species
             Column(
                 modifier
                     .fillMaxSize()
@@ -78,7 +77,7 @@ fun MovieScreen(
                             contentScale = ContentScale.Crop
                         )
                         Text(
-                            text = "H o m e / F i l m s",
+                            text = "H o m e / S p e c i e s",
                             Modifier
                                 .fillMaxWidth()
                                 .padding(start = 16.dp),
@@ -94,9 +93,9 @@ fun MovieScreen(
                     verticalItemSpacing = 16.dp,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(movies) { movie ->
-                        val urlImage = getIndexFromUrl(movie.url, "/films/")
-                        val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
+                    items(species) { specie ->
+                        val urlImage = getIndexFromUrl(specie.url, "/species/")
+                        val image = "${Constants.BASE_URL_SPECIE_IMAGE}$urlImage.jpg"
 
                         Column {
                             AsyncImage(
@@ -106,21 +105,20 @@ fun MovieScreen(
                                     .fillMaxWidth()
                                     .fillMaxHeight()
                                     .clickable {
-                                        onMovieClick(movie)
+                                        onSpecieClick(specie)
                                     },
                                 placeholder = ColorPainter(Color.Gray),
                                 contentScale = ContentScale.Crop
                             )
                             Text(
-                                text = "Episode ${movie.episodeId}: ${movie.title}",
+                                text = specie.name,
                                 Modifier
                                     .background(color = Color.White)
                                     .fillMaxWidth()
                                     .padding(start = 4.dp),
                                 style = TextStyle.Default.copy(
-                                    fontSize = 16.sp,
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold
+                                    fontSize = 10.sp,
+                                    color = Color.Black
                                 )
                             )
                         }
@@ -129,19 +127,19 @@ fun MovieScreen(
             }
         }
 
-        is MovieUiState.Empty -> {
+        is SpecieUiState.Empty -> {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Nenhuma filme encontrado!",
+                    text = "Nenhuma espécie encontrada!",
                     style = TextStyle.Default.copy(
                         fontSize = MaterialTheme.typography.titleLarge.fontSize
                     )
                 )
-                TextButton(onClick = { onRetryLoadMovies() }) {
+                TextButton(onClick = { onRetryLoadSpecies() }) {
                     Text(text = "Tentar buscar novamente")
                 }
             }
@@ -151,16 +149,16 @@ fun MovieScreen(
 
 @Preview
 @Composable
-fun MovieScreenPreview() {
+fun VehicleScreenPreview() {
     StarWarsTheme {
         Surface {
             Surface(color = MaterialTheme.colorScheme.background) {
-                MovieScreen(
-                    uiState = MovieUiState.Success(
-                        movies = sampleMovies
+                SpecieScreen(
+                    uiState = SpecieUiState.Success(
+                        species = sampleSpecies
                     ),
-                    onRetryLoadMovies = {},
-                    onMovieClick = {},
+                    onRetryLoadSpecies = {},
+                    onSpecieClick = {},
                     columns = 2
                 )
             }

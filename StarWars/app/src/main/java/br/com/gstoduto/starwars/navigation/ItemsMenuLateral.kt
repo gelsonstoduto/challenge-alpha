@@ -26,7 +26,7 @@ sealed class ItemsMenuLateral(
     object ItemSpecies: ItemsMenuLateral(
         Icons.Outlined.Android,
         "Species list",
-        DestinationsStarWarsApp.movieRoute.rota
+        DestinationsStarWarsApp.specieRoute.rota
     )
 }
 

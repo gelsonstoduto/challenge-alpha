@@ -11,4 +11,5 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "st
 object PreferencesKey {
     val TIMESTAMP_MOVIES = stringPreferencesKey("timestamp_movies")
     val TIMESTAMP_VEHICLES = stringPreferencesKey("timestamp_vehicles")
+    val TIMESTAMP_SPECIES = stringPreferencesKey("timestamp_species")
 }

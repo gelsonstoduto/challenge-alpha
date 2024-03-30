@@ -3,6 +3,7 @@ package br.com.gstoduto.starwars.navigation
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.com.gstoduto.starwars.util.Constants.ID_MOVIE
+import br.com.gstoduto.starwars.util.Constants.ID_SPECIE
 import br.com.gstoduto.starwars.util.Constants.ID_VEHICLE
 
 sealed class DestinationsStarWarsApp(val rota: String) {
@@ -30,6 +31,21 @@ sealed class DestinationsStarWarsApp(val rota: String) {
         const val routeWithArguments = "$rota/{$ID_VEHICLE}"
         val arguments = listOf(
             navArgument(ID_VEHICLE) {
+                defaultValue = ""
+                type = NavType.StringType
+            }
+        )
+    }
+
+    object specieRoute : DestinationsStarWarsApp("specie")
+    object mySpecieListRoute : DestinationsStarWarsApp("mySpecieList")
+    object mySpecieDetails : DestinationsStarWarsApp("specieDetails/{id_specie}")
+
+    object SpecieDetails {
+        const val rota = "specieDetails"
+        const val routeWithArguments = "$rota/{$ID_SPECIE}"
+        val arguments = listOf(
+            navArgument(ID_SPECIE) {
                 defaultValue = ""
                 type = NavType.StringType
             }
