@@ -1,6 +1,7 @@
 package br.com.gstoduto.starwars.di.modules
 
 import br.com.gstoduto.starwars.network.services.MovieService
+import br.com.gstoduto.starwars.network.services.SpecieService
 import br.com.gstoduto.starwars.network.services.VehicleService
 import br.com.gstoduto.starwars.util.Constants.BASE_URL
 import dagger.Module
@@ -38,6 +39,12 @@ object RestApiModule {
     @Singleton
     fun provideVehicleService(retrofit: Retrofit): VehicleService {
         return retrofit.create(VehicleService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSpecieService(retrofit: Retrofit): SpecieService {
+        return retrofit.create(SpecieService::class.java)
     }
 
     @Provides
