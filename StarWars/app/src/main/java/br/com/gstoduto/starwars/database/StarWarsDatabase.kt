@@ -7,11 +7,12 @@ import br.com.gstoduto.starwars.database.dao.MovieDao
 import br.com.gstoduto.starwars.database.dao.SpecieDao
 import br.com.gstoduto.starwars.database.dao.VehicleDao
 import br.com.gstoduto.starwars.database.entities.MovieEntity
+import br.com.gstoduto.starwars.database.entities.SpecieEntity
 import br.com.gstoduto.starwars.database.entities.VehicleEntity
 
 @Database(
     version = 5,
-    entities = [MovieEntity::class, VehicleEntity::class],
+    entities = [MovieEntity::class, VehicleEntity::class, SpecieEntity::class],
     exportSchema = true,
     autoMigrations = [
         AutoMigration(1, 2),
