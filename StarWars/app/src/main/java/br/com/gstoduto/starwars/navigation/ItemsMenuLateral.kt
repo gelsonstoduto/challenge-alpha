@@ -1,7 +1,7 @@
 package br.com.gstoduto.starwars.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Adjust
+import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.DirectionsCar
 import androidx.compose.material.icons.outlined.Movie
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -24,7 +24,7 @@ sealed class ItemsMenuLateral(
     )
 
     object ItemSpecies: ItemsMenuLateral(
-        Icons.Outlined.Adjust,
+        Icons.Outlined.Android,
         "Species list",
         DestinationsStarWarsApp.movieRoute.rota
     )
