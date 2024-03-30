@@ -24,10 +24,10 @@ interface VehicleDao {
     @Query("SELECT * FROM vehicles WHERE inMyList = 1")
     fun myList(): Flow<List<VehicleEntity>>
 
-    @Query("UPDATE vehicles SET inMyList = 0 WHERE url = :id")
+    @Query("UPDATE vehicles SET inMyList = 0 WHERE id = :id")
     suspend fun removeFromMyList(id: String)
 
-    @Query("UPDATE vehicles SET inMyList = 1 WHERE url = :id")
+    @Query("UPDATE vehicles SET inMyList = 1 WHERE id = :id")
     suspend fun addToMyList(id: String)
 
     @Query("SELECT * FROM vehicles WHERE id = :id")
