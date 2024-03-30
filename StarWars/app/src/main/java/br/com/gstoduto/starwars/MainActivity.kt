@@ -66,17 +66,23 @@ fun StarWarsApp(
 
     val selectedItem by remember(currentDestination) {
         val item = when (currentRoute) {
-            DestinationsStarWarsApp.movieRoute.rota -> BottomAppBarItem.Home
-            DestinationsStarWarsApp.myMovieListRoute.rota -> BottomAppBarItem.MyList
-            else -> BottomAppBarItem.Home
+            DestinationsStarWarsApp.movieRoute.rota -> BottomAppBarItem.Movie
+            DestinationsStarWarsApp.myMovieListRoute.rota -> BottomAppBarItem.MyMovieList
+            DestinationsStarWarsApp.myMovieDetails.rota -> BottomAppBarItem.Movie
+            DestinationsStarWarsApp.vehicleRoute.rota -> BottomAppBarItem.Vehicle
+            DestinationsStarWarsApp.myVehicleListRoute.rota -> BottomAppBarItem.MyVehicleList
+            DestinationsStarWarsApp.myVehicleDetails.rota -> BottomAppBarItem.Vehicle
+            else -> BottomAppBarItem.Movie
         }
         mutableStateOf(item)
     }
 
     val bottomAppBarItems = remember {
         listOf(
-            BottomAppBarItem.Home,
-            BottomAppBarItem.MyList
+            BottomAppBarItem.Movie,
+            BottomAppBarItem.Vehicle,
+            BottomAppBarItem.MyMovieList,
+            BottomAppBarItem.MyVehicleList,
         )
     }
 
@@ -93,7 +99,7 @@ fun StarWarsApp(
             onBottomAppBarItemSelected = { item ->
                 navController.navigateToBottomAppBarItem(item)
             },
-            drawerState = drawerState,
+            drawerState = drawerState
         )
         {
             StarWarsNavHost(
