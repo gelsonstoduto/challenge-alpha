@@ -8,6 +8,7 @@ import br.com.gstoduto.starwars.util.Constants.ID_VEHICLE
 sealed class DestinationsStarWarsApp(val rota: String) {
     object movieRoute : DestinationsStarWarsApp("movie")
     object myMovieListRoute : DestinationsStarWarsApp("myMovieList")
+    object myMovieDetails : DestinationsStarWarsApp("movieDetails/{id_movie}")
 
     object MovieDetails {
         const val rota = "movieDetails"
@@ -22,6 +23,7 @@ sealed class DestinationsStarWarsApp(val rota: String) {
 
     object vehicleRoute : DestinationsStarWarsApp("vehicle")
     object myVehicleListRoute : DestinationsStarWarsApp("myVehicleList")
+    object myVehicleDetails : DestinationsStarWarsApp("vehicleDetails/{id_vehicle}")
 
     object VehicleDetails {
         const val rota = "vehicleDetails"
