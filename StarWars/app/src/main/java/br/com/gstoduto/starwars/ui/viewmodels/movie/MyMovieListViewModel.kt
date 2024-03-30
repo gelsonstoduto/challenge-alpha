@@ -25,6 +25,8 @@ class MyMovieListViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
+    var movies = mutableListOf<Movie>()
+
     init {
         viewModelScope.launch {
             loadMyList()
@@ -32,8 +34,8 @@ class MyMovieListViewModel @Inject constructor(
     }
 
     private suspend fun loadUiState() {
-        val movies = mutableListOf<Movie>()
         getMyMovieListUseCase.getMyListMovies().collect {
+            movies.clear()
             it.listIterator().forEach { movieEntity ->
                 movies.add(movieEntity.toMovie())
             }
@@ -49,6 +51,16 @@ class MyMovieListViewModel @Inject constructor(
 
     suspend fun removeFromMyList(movie: Movie) {
         removeMovieFromMyListUseCase.removeMovieFromMyList(movie.id.toString())
+        movies.remove(movie)
+        val newState = if (movies.isEmpty()) {
+            MyMovieListUiState.Empty(movies = movies)
+        } else {
+            MyMovieListUiState.Success(movies = movies)
+        }
+
+        if (newState != _uiState.value) {
+            _uiState.value = newState
+        }
     }
 
     suspend fun loadMyList() {

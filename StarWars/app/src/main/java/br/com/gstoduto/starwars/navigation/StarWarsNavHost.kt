@@ -12,7 +12,10 @@ import br.com.gstoduto.starwars.navigation.movie.movieScreen
 import br.com.gstoduto.starwars.navigation.movie.myMovieListScreen
 import br.com.gstoduto.starwars.navigation.movie.navigateToMovie
 import br.com.gstoduto.starwars.navigation.movie.navigateToMyMovieList
+import br.com.gstoduto.starwars.navigation.specie.mySpecieListScreen
+import br.com.gstoduto.starwars.navigation.specie.navigateToMySpecieList
 import br.com.gstoduto.starwars.navigation.specie.navigateToSpecie
+import br.com.gstoduto.starwars.navigation.specie.specieDetails
 import br.com.gstoduto.starwars.navigation.specie.specieScreen
 import br.com.gstoduto.starwars.navigation.vehicle.myVehicleListScreen
 import br.com.gstoduto.starwars.navigation.vehicle.navigateToMyVehicleList
@@ -76,6 +79,21 @@ fun StarWarsNavHost(
                 navController.navigateToSpecieDetails(specie.id.toString())
             },
         )
+        navController.currentBackStackEntry?.savedStateHandle?.let {
+            specieDetails(it)
+        }
+        mySpecieListScreen(
+            onNavigateToSpecie = {
+                navController.navigateToSpecie(navOptions {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                })
+            },
+            onNavigateToSpecieDetails = {
+                navController.navigateToSpecieDetails(it.id.toString())
+            },
+        )
     }
 }
 
@@ -135,7 +153,7 @@ fun NavController.navigateToBottomAppBarItem(
                 }
             )
         }
-        BottomAppBarItem.Vehicle -> {
+        BottomAppBarItem.Specie -> {
             navigateToSpecie(
                 navOptions {
                     launchSingleTop = true
@@ -143,12 +161,11 @@ fun NavController.navigateToBottomAppBarItem(
                 }
             )
         }
-
-        else -> {
-            navigateToMovie(
+        BottomAppBarItem.MySpecieList -> {
+            navigateToMySpecieList(
                 navOptions {
                     launchSingleTop = true
-                    popUpTo(DestinationsStarWarsApp.movieRoute.rota)
+                    popUpTo(DestinationsStarWarsApp.mySpecieListRoute.rota)
                 }
             )
         }

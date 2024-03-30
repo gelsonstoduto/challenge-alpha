@@ -25,6 +25,8 @@ class MyVehicleListViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
+    var vehicles = mutableListOf<Vehicle>()
+
     init {
         viewModelScope.launch {
             loadMyList()
@@ -32,8 +34,8 @@ class MyVehicleListViewModel @Inject constructor(
     }
 
     private suspend fun loadUiState() {
-        val vehicles = mutableListOf<Vehicle>()
         getMyVehicleListUseCase.getMyListVehicles().collect {
+            vehicles.clear()
             it.listIterator().forEach { vehicleEntity ->
                 vehicles.add(vehicleEntity.toVehicle())
             }
@@ -49,6 +51,16 @@ class MyVehicleListViewModel @Inject constructor(
 
     suspend fun removeFromMyList(vehicle: Vehicle) {
         removeVehicleFromMyListUseCase.removeVehicleFromMyList(vehicle.id.toString())
+        vehicles.remove(vehicle)
+        val newState = if (vehicles.isEmpty()) {
+            MyVehicleListUiState.Empty(vehicles = vehicles)
+        } else {
+            MyVehicleListUiState.Success(vehicles = vehicles)
+        }
+
+        if (newState != _uiState.value) {
+            _uiState.value = newState
+        }
     }
 
     suspend fun loadMyList() {

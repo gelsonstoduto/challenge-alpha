@@ -2,6 +2,8 @@ package br.com.gstoduto.starwars.navigation.vehicle
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -21,16 +23,20 @@ fun NavGraphBuilder.myVehicleListScreen(
     composable(DestinationsStarWarsApp.myVehicleListRoute.rota) {
         val viewModel = hiltViewModel<MyVehicleListViewModel>()
         val uiState by viewModel.uiState.collectAsState()
+        val refreshKey = remember { mutableIntStateOf(0) }
         val scope = rememberCoroutineScope()
+
         MyVehicleListScreen(
             uiState = uiState,
             onSeeOtherVehicles = onNavigateToVehicle,
             onRemoveVehicleFromMyList = {
                 scope.launch {
                     viewModel.removeFromMyList(it)
+                    refreshKey.value++
                 }
             },
             onVehicleClick = onNavigateToVehicleDetails,
+            refreshKey = refreshKey.value,
         )
     }
 }

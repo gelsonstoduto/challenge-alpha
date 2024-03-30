@@ -56,6 +56,12 @@ sealed class BottomAppBarItem(
         "Favorite vehicles",
         "vehicle.myVehicleList.vehicleDetails"
     )
+
+    object MySpecieList : BottomAppBarItem(
+        Icons.Default.List,
+        "Favorite species",
+        "specie.mySpecieList.specieDetails"
+    )
 }
 
 @Composable
@@ -110,6 +116,7 @@ fun StarWarsBottomAppBarPreview() {
                     BottomAppBarItem.Specie,
                     BottomAppBarItem.MyMovieList,
                     BottomAppBarItem.MyVehicleList,
+                    BottomAppBarItem.MySpecieList,
                 )
             )
         }

@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import br.com.gstoduto.starwars.model.Specie
 import br.com.gstoduto.starwars.navigation.DestinationsStarWarsApp
 import br.com.gstoduto.starwars.ui.screens.specie.SpecieScreen
-import br.com.gstoduto.starwars.ui.viewmodels.vehicle.SpecieViewModel
+import br.com.gstoduto.starwars.ui.viewmodels.specie.SpecieViewModel
 
 fun NavGraphBuilder.specieScreen(
     onNavigateToSpecieDetails: (Specie) -> Unit,

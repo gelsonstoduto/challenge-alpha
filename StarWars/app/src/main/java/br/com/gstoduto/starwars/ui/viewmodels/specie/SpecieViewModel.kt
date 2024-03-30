@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.viewmodels.vehicle
+package br.com.gstoduto.starwars.ui.viewmodels.specie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

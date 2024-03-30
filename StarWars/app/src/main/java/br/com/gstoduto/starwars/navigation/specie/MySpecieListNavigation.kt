@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.navigation.movie
+package br.com.gstoduto.starwars.navigation.specie
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -10,38 +10,39 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import br.com.gstoduto.starwars.model.Movie
+import br.com.gstoduto.starwars.model.Specie
 import br.com.gstoduto.starwars.navigation.DestinationsStarWarsApp
-import br.com.gstoduto.starwars.ui.screens.movie.MyMovieListScreen
-import br.com.gstoduto.starwars.ui.viewmodels.movie.MyMovieListViewModel
+import br.com.gstoduto.starwars.ui.screens.specie.MySpecieListScreen
+import br.com.gstoduto.starwars.ui.viewmodels.specie.MySpecieListViewModel
 import kotlinx.coroutines.launch
 
-fun NavGraphBuilder.myMovieListScreen(
-    onNavigateToMovie: () -> Unit,
-    onNavigateToMovieDetails: (Movie) -> Unit
+fun NavGraphBuilder.mySpecieListScreen(
+    onNavigateToSpecie: () -> Unit,
+    onNavigateToSpecieDetails: (Specie) -> Unit
 ) {
-    composable(DestinationsStarWarsApp.myMovieListRoute.rota) {
-        val viewModel = hiltViewModel<MyMovieListViewModel>()
+    composable(DestinationsStarWarsApp.mySpecieListRoute.rota) {
+        val viewModel = hiltViewModel<MySpecieListViewModel>()
         val uiState by viewModel.uiState.collectAsState()
-        val refreshKey = remember { mutableIntStateOf(0) } // Key para atualização
+        val refreshKey = remember { mutableIntStateOf(0) }
         val scope = rememberCoroutineScope()
-        MyMovieListScreen(
+
+        MySpecieListScreen(
             uiState = uiState,
-            onSeeOtherMovies = onNavigateToMovie,
-            onRemoveMovieFromMyList = {
+            onSeeOtherSpecies = onNavigateToSpecie,
+            onRemoveSpecieFromMyList = {
                 scope.launch {
                     viewModel.removeFromMyList(it)
                     refreshKey.value++
                 }
             },
-            onMovieClick = onNavigateToMovieDetails,
+            onSpecieClick = onNavigateToSpecieDetails,
             refreshKey = refreshKey.value,
         )
     }
 }
 
-fun NavController.navigateToMyMovieList(
-    navOptions: NavOptions? = null
+fun NavController.navigateToMySpecieList(
+    navOptions: NavOptions? = null,
 ) {
-    navigate(DestinationsStarWarsApp.myMovieListRoute.rota, navOptions)
+    navigate(DestinationsStarWarsApp.mySpecieListRoute.rota, navOptions)
 }

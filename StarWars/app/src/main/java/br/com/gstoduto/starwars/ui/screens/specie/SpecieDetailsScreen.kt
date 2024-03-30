@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens.vehicle
+package br.com.gstoduto.starwars.ui.screens.specie
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,27 +34,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.gstoduto.starwars.model.Vehicle
-import br.com.gstoduto.starwars.sampleData.sampleVehicleAdded
-import br.com.gstoduto.starwars.sampleData.sampleVehicleRemoved
+import br.com.gstoduto.starwars.model.Specie
+import br.com.gstoduto.starwars.sampleData.sampleSpecieAdded
+import br.com.gstoduto.starwars.sampleData.sampleSpecieRemoved
 import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.vehicle.VehicleDetailsUiState
+import br.com.gstoduto.starwars.ui.uistates.specie.SpecieDetailsUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 private class ToggleButton(
     val text: String,
     val icon: ImageVector,
-    val action: (Vehicle) -> Unit,
+    val action: (Specie) -> Unit,
     val buttonColor: Long
 )
 
 @Composable
-fun VehicleDetailsScreen(
-    uiState: VehicleDetailsUiState,
-    onAddVehicleToMyListClick: (Vehicle) -> Unit,
-    onRemoveVehicleFromMyList: (Vehicle) -> Unit,
+fun SpecieDetailsScreen(
+    uiState: SpecieDetailsUiState,
+    onAddSpecieToMyListClick: (Specie) -> Unit,
+    onRemoveSpecieFromMyList: (Specie) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -63,7 +63,7 @@ fun VehicleDetailsScreen(
             .background(Color(0xFF2B2B2B))
     ) {
 
-        val vehicle = uiState.vehicle
+        val specie = uiState.specie
         Column {
             Column(
                 Modifier
@@ -73,9 +73,9 @@ fun VehicleDetailsScreen(
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    vehicle?.let {
-                        val urlImage = getIndexFromUrl(vehicle.url, "/vehicles/")
-                        val image = "${Constants.BASE_URL_VEHICLE_IMAGE}$urlImage.jpg"
+                    specie?.let {
+                        val urlImage = getIndexFromUrl(specie.url, "/species/")
+                        val image = "${Constants.BASE_URL_SPECIE_IMAGE}$urlImage.jpg"
 
                         AsyncImage(
                             model = image,
@@ -91,30 +91,28 @@ fun VehicleDetailsScreen(
                         )
                         Column {
                             Text(
-                                text = vehicle.name,
+                                text = specie.name,
                                 style = TextStyle.Default.copy(
                                     fontSize = 16.sp,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
                                 ))
                             Spacer(modifier = Modifier.size(8.dp))
-                            Text(text = "Model: ${vehicle.model}")
+                            Text(text = "Classification: ${specie.classification}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Manufacturer: ${vehicle.manufacturer}")
+                            Text(text = "Designation: ${specie.designation}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Class: ${vehicle.vehicleClass}")
+                            Text(text = "Language: ${specie.language}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Cost: ${vehicle.costInCredits} credits")
+                            Text(text = "Avg Lifespan: ${specie.averageLifespan}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Speed: ${vehicle.maxAtmospheringSpeed} km/h")
+                            Text(text = "Avg Height: ${specie.averageHeight }cm")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Length: ${vehicle.length}m")
+                            Text(text = "Hair Color(s): ${specie.hairColors}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Cargo Capacity: ${vehicle.cargoCapacity}")
+                            Text(text = "Skin Color(s): ${specie.skinColors}")
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Mimimum Crew: ${vehicle.consumables}")
-                            Spacer(modifier = Modifier.size(4.dp))
-                            Text(text = "Passengers: ${vehicle.passengers}")
+                            Text(text = "Eye Color(s): ${specie.eyeColors}")
                             Spacer(modifier = Modifier.size(4.dp))
                         }
                     }
@@ -126,18 +124,18 @@ fun VehicleDetailsScreen(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val toggleButton = if (vehicle?.inMyList == true) {
+                        val toggleButton = if (specie?.inMyList == true) {
                             ToggleButton(
                                 icon = Icons.Default.PlaylistRemove,
                                 text = "Remover da lista",
-                                action = onRemoveVehicleFromMyList,
+                                action = onRemoveSpecieFromMyList,
                                 buttonColor = 0xffB20510
                             )
                         } else {
                             ToggleButton(
                                 icon = Icons.Default.PlaylistAdd,
                                 text = "Adicionar à lista",
-                                action = onAddVehicleToMyListClick,
+                                action = onAddSpecieToMyListClick,
                                 buttonColor = 0xff4F4F4F
                             )
                         }
@@ -153,7 +151,7 @@ fun VehicleDetailsScreen(
                                     .align(Center)
                                     .clip(CircleShape)
                                     .clickable {
-                                        vehicle?.let { toggleButton.action(it) }
+                                        specie?.let { toggleButton.action(it) }
                                     }
                                     .padding(8.dp)
                             ) {
@@ -181,13 +179,13 @@ fun VehicleDetailsScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun VehicleDetailsScreenWithMovieAddedToMyListPreview() {
+fun SpecieDetailsScreenWithMovieAddedToMyListPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            VehicleDetailsScreen(
-                uiState = VehicleDetailsUiState(),
-                onAddVehicleToMyListClick = {},
-                onRemoveVehicleFromMyList = {},
+            SpecieDetailsScreen(
+                uiState = SpecieDetailsUiState(),
+                onAddSpecieToMyListClick = {},
+                onRemoveSpecieFromMyList = {},
             )
         }
     }
@@ -195,13 +193,13 @@ fun VehicleDetailsScreenWithMovieAddedToMyListPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun VehicleDetailsScreenWithoutMovieAddedToMyListPreview() {
+fun SpecieDetailsScreenWithoutMovieAddedToMyListPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            VehicleDetailsScreen(
-                uiState = VehicleDetailsUiState(vehicle = sampleVehicleAdded),
-                onAddVehicleToMyListClick = {},
-                onRemoveVehicleFromMyList = {},
+            SpecieDetailsScreen(
+                uiState = SpecieDetailsUiState(specie = sampleSpecieAdded),
+                onAddSpecieToMyListClick = {},
+                onRemoveSpecieFromMyList = {},
             )
         }
     }
@@ -209,13 +207,13 @@ fun VehicleDetailsScreenWithoutMovieAddedToMyListPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun VehicleDetailsScreenWithMovieRemovedFromMyListPreview() {
+fun SpecieDetailsScreenWithMovieRemovedFromMyListPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            VehicleDetailsScreen(
-                uiState = VehicleDetailsUiState(vehicle = sampleVehicleRemoved),
-                onAddVehicleToMyListClick = {},
-                onRemoveVehicleFromMyList = {},
+            SpecieDetailsScreen(
+                uiState = SpecieDetailsUiState(specie = sampleSpecieRemoved),
+                onAddSpecieToMyListClick = {},
+                onRemoveSpecieFromMyList = {},
             )
         }
     }

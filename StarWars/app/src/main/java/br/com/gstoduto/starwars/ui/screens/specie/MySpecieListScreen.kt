@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens.vehicle
+package br.com.gstoduto.starwars.ui.screens.specie
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,26 +36,26 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import br.com.gstoduto.starwars.model.Vehicle
-import br.com.gstoduto.starwars.sampleData.sampleVehicles
+import br.com.gstoduto.starwars.model.Specie
+import br.com.gstoduto.starwars.sampleData.sampleSpecies
 import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.vehicle.MyVehicleListUiState
+import br.com.gstoduto.starwars.ui.uistates.specie.MySpecieListUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
-fun MyVehicleListScreen(
-    uiState: MyVehicleListUiState,
-    onSeeOtherVehicles: () -> Unit,
-    onVehicleClick: (Vehicle) -> Unit,
-    onRemoveVehicleFromMyList: (Vehicle) -> Unit,
+fun MySpecieListScreen(
+    uiState: MySpecieListUiState,
+    onSeeOtherSpecies: () -> Unit,
+    onSpecieClick: (Specie) -> Unit,
+    onRemoveSpecieFromMyList: (Specie) -> Unit,
     refreshKey: Int,
     modifier: Modifier = Modifier
 ) {
     key(refreshKey) {
         when (uiState) {
-            is MyVehicleListUiState.Loading -> {
+            is MySpecieListUiState.Loading -> {
                 Box(Modifier.fillMaxSize()) {
                     CircularProgressIndicator(
                         Modifier.align(Alignment.Center)
@@ -63,9 +63,9 @@ fun MyVehicleListScreen(
                 }
             }
 
-            is MyVehicleListUiState.Success -> {
-                val vehicles = uiState.vehicles
-                val size = vehicles.size
+            is MySpecieListUiState.Success -> {
+                val species = uiState.species
+                val size = species.size
                 val columns = remember(size) {
                     when {
                         size < 4 -> 1
@@ -82,18 +82,18 @@ fun MyVehicleListScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        items(vehicles) { vehicle ->
+                        items(species) { specie ->
                             Column(
                                 Modifier
                                     .fillMaxWidth()
                                     .height(200.dp)
                                     .clickable {
-                                        onVehicleClick(vehicle)
+                                        onSpecieClick(specie)
                                     },
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Text(
-                                    text = vehicle.name,
+                                    text = specie.name,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
@@ -108,7 +108,7 @@ fun MyVehicleListScreen(
                                             .clip(CircleShape)
                                             .align(Alignment.TopEnd)
                                             .clickable {
-                                                onRemoveVehicleFromMyList(vehicle)
+                                                onRemoveSpecieFromMyList(specie)
                                             }
                                             .padding(4.dp)
                                     ) {
@@ -120,8 +120,8 @@ fun MyVehicleListScreen(
                                             )
                                         )
                                     }
-                                    val urlImage = getIndexFromUrl(vehicle.url, "/vehicles/")
-                                    val image = "${Constants.BASE_URL_VEHICLE_IMAGE}$urlImage.jpg"
+                                    val urlImage = getIndexFromUrl(specie.url, "/species/")
+                                    val image = "${Constants.BASE_URL_SPECIE_IMAGE}$urlImage.jpg"
 
                                     AsyncImage(
                                         model = image,
@@ -141,7 +141,7 @@ fun MyVehicleListScreen(
                 }
             }
 
-            is MyVehicleListUiState.Empty -> {
+            is MySpecieListUiState.Empty -> {
                 Box(
                     Modifier.fillMaxSize()
                 ) {
@@ -151,11 +151,11 @@ fun MyVehicleListScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Sem veículos na sua lista",
+                            text = "Sem espécies na sua lista",
                             style = MaterialTheme.typography.titleLarge
                         )
-                        TextButton(onClick = onSeeOtherVehicles) {
-                            Text(text = "Adicionar novos veículos")
+                        TextButton(onClick = onSeeOtherSpecies) {
+                            Text(text = "Adicionar novas espécies")
                         }
                     }
                 }
@@ -166,14 +166,14 @@ fun MyVehicleListScreen(
 
 @Preview
 @Composable
-fun MyVehicleListScreenPreview() {
+fun MySpecieListScreenPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MyVehicleListScreen(
-                uiState = MyVehicleListUiState.Success(sampleVehicles),
-                onSeeOtherVehicles = {},
-                onRemoveVehicleFromMyList = {},
-                onVehicleClick = {},
+            MySpecieListScreen(
+                uiState = MySpecieListUiState.Success(sampleSpecies),
+                onSeeOtherSpecies = {},
+                onRemoveSpecieFromMyList = {},
+                onSpecieClick = {},
                 refreshKey= 0
             )
         }
@@ -182,15 +182,15 @@ fun MyVehicleListScreenPreview() {
 
 @Preview
 @Composable
-fun MyVehicleListScreenWithoutVehiclesPreview() {
+fun MySpecieListScreenWithoutSpeciesPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MyVehicleListScreen(
-                uiState = MyVehicleListUiState.Empty(),
-                onSeeOtherVehicles = {},
-                onRemoveVehicleFromMyList = {},
-                onVehicleClick = {},
-                refreshKey= 0
+            MySpecieListScreen(
+                uiState = MySpecieListUiState.Empty(),
+                onSeeOtherSpecies = {},
+                onRemoveSpecieFromMyList = {},
+                onSpecieClick = {},
+                refreshKey = 0
             )
         }
     }
