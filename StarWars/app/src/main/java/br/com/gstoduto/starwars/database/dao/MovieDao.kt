@@ -36,6 +36,6 @@ interface MovieDao {
     @Query("SELECT * FROM movies WHERE title = :title")
     fun findMovieByTitle(title: String): Flow<MovieEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveAll(vararg entities: MovieEntity)
 }
