@@ -1,4 +1,4 @@
-package br.com.gstoduto.starwars.ui.screens.movie
+package br.com.gstoduto.starwars.ui.screens.vehicle
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,33 +35,33 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import br.com.gstoduto.starwars.model.Movie
-import br.com.gstoduto.starwars.sampleData.sampleMovies
+import br.com.gstoduto.starwars.model.Vehicle
+import br.com.gstoduto.starwars.sampleData.sampleVehicles
 import br.com.gstoduto.starwars.ui.components.getIndexFromUrl
 import br.com.gstoduto.starwars.ui.theme.StarWarsTheme
-import br.com.gstoduto.starwars.ui.uistates.movie.MyMovieListUiState
+import br.com.gstoduto.starwars.ui.uistates.vehicle.MyVehicleListUiState
 import br.com.gstoduto.starwars.util.Constants
 import coil.compose.AsyncImage
 
 @Composable
-fun MyMovieListScreen(
-    uiState: MyMovieListUiState,
-    onSeeOtherMovies: () -> Unit,
-    onMovieClick: (Movie) -> Unit,
-    onRemoveMovieFromMyList: (Movie) -> Unit,
+fun MyVehicleListScreen(
+    uiState: MyVehicleListUiState,
+    onSeeOtherVehicles: () -> Unit,
+    onVehicleClick: (Vehicle) -> Unit,
+    onRemoveVehicleFromMyList: (Vehicle) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        MyMovieListUiState.Loading -> {
+        is MyVehicleListUiState.Loading -> {
             Box(Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center)
                 )
             }
         }
-        is MyMovieListUiState.Success -> {
-            val movies = uiState.movies
-            val size = movies.size
+        is MyVehicleListUiState.Success -> {
+            val vehicles = uiState.vehicles
+            val size = vehicles.size
             val columns = remember(size) {
                 when {
                     size < 4 -> 1
@@ -78,18 +78,18 @@ fun MyMovieListScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(movies) { movie ->
+                    items(vehicles) { vehicle ->
                         Column(
                             Modifier
                                 .fillMaxWidth()
                                 .height(200.dp)
                                 .clickable {
-                                    onMovieClick(movie)
+                                    onVehicleClick(vehicle)
                                 },
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Text(
-                                text = movie.title,
+                                text = vehicle.name,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
@@ -104,7 +104,7 @@ fun MyMovieListScreen(
                                         .clip(CircleShape)
                                         .align(Alignment.TopEnd)
                                         .clickable {
-                                            onRemoveMovieFromMyList(movie)
+                                            onRemoveVehicleFromMyList(vehicle)
                                         }
                                         .padding(4.dp)
                                 ) {
@@ -116,8 +116,8 @@ fun MyMovieListScreen(
                                         )
                                     )
                                 }
-                                val urlImage = getIndexFromUrl(movie.url, "/films/")
-                                val image = "${Constants.BASE_URL_MOVIE_IMAGE}$urlImage.jpg"
+                                val urlImage = getIndexFromUrl(vehicle.url, "/vehicles/")
+                                val image = "${Constants.BASE_URL_VEHICLE_IMAGE}$urlImage.jpg"
 
                                 AsyncImage(
                                     model = image,
@@ -136,7 +136,7 @@ fun MyMovieListScreen(
 
             }
         }
-        is MyMovieListUiState.Empty -> {
+        is MyVehicleListUiState.Empty -> {
             Box(
                 Modifier.fillMaxSize()
             ) {
@@ -146,11 +146,11 @@ fun MyMovieListScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Sem filmes na sua lista",
+                        text = "Sem veículos na sua lista",
                         style = MaterialTheme.typography.titleLarge
                     )
-                    TextButton(onClick = onSeeOtherMovies) {
-                        Text(text = "Adicionar novos filmes")
+                    TextButton(onClick = onSeeOtherVehicles) {
+                        Text(text = "Adicionar novos veículos")
                     }
                 }
             }
@@ -161,14 +161,14 @@ fun MyMovieListScreen(
 
 @Preview
 @Composable
-fun MyMovieListScreenPreview() {
+fun MyListScreenPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MyMovieListScreen(
-                uiState = MyMovieListUiState.Success(sampleMovies),
-                onSeeOtherMovies = {},
-                onRemoveMovieFromMyList = {},
-                onMovieClick = {},
+            MyVehicleListScreen(
+                uiState = MyVehicleListUiState.Success(sampleVehicles),
+                onSeeOtherVehicles = {},
+                onRemoveVehicleFromMyList = {},
+                onVehicleClick = {},
             )
         }
     }
@@ -176,14 +176,14 @@ fun MyMovieListScreenPreview() {
 
 @Preview
 @Composable
-fun MyMovieListScreenWithoutMoviesPreview() {
+fun MyListScreenWithoutMoviesPreview() {
     StarWarsTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            MyMovieListScreen(
-                uiState = MyMovieListUiState.Empty(),
-                onSeeOtherMovies = {},
-                onRemoveMovieFromMyList = {},
-                onMovieClick = {},
+            MyVehicleListScreen(
+                uiState = MyVehicleListUiState.Empty(),
+                onSeeOtherVehicles = {},
+                onRemoveVehicleFromMyList = {},
+                onVehicleClick = {},
             )
         }
     }

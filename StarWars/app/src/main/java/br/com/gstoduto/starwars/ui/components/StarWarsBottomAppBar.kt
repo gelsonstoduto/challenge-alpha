@@ -22,16 +22,31 @@ import br.com.gstoduto.starwars.ui.theme.unselectedTextBottomAppBarColor
 
 sealed class BottomAppBarItem(
     val icon: ImageVector,
-    val label: String
+    val label: String,
+    val category: String
 ) {
-    object Home : BottomAppBarItem(
+    object Movie : BottomAppBarItem(
         Icons.Default.Home,
-        "Films"
+        "Films",
+        "movie.myMovieList.movieDetails"
     )
 
-    object MyList : BottomAppBarItem(
+    object Vehicle : BottomAppBarItem(
+        Icons.Default.Home,
+        "Vehicles",
+        "vehicle.myVehicleList.vehicleDetails"
+    )
+
+    object MyMovieList : BottomAppBarItem(
         Icons.Default.List,
-        "Minha lista"
+        "Favorite movies",
+        "movie.myMovieList.movieDetails"
+    )
+
+    object MyVehicleList : BottomAppBarItem(
+        Icons.Default.List,
+        "Favorite vehicles",
+        "vehicle.myVehicleList.vehicleDetails"
     )
 }
 
@@ -46,28 +61,30 @@ fun StarWarsBottomAppBar(
         modifier,
         containerColor = MaterialTheme.colorScheme.background,
     ) {
-        items.forEach {
-            NavigationBarItem(
-                selected = it == selectedItem,
-                onClick = { onItemClick(it) },
-                icon = {
-                    Column {
-                        Icon(
-                            it.icon,
-                            contentDescription = null
-                        )
-                    }
-                },
-                label = {
-                    Text(text = it.label)
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = MaterialTheme.colorScheme.onBackground,
-                    selectedTextColor = MaterialTheme.colorScheme.onBackground,
-                    unselectedIconColor = unselectedIconBottomAppBarColor,
-                    unselectedTextColor = unselectedTextBottomAppBarColor
+        items.forEach { item ->
+            if (item.category.contains(selectedItem.category)) {
+                NavigationBarItem(
+                    selected = item == selectedItem,
+                    onClick = { onItemClick(item) },
+                    icon = {
+                        Column {
+                            Icon(
+                                item.icon,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                    label = {
+                        Text(text = item.label)
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = MaterialTheme.colorScheme.onBackground,
+                        selectedTextColor = MaterialTheme.colorScheme.onBackground,
+                        unselectedIconColor = unselectedIconBottomAppBarColor,
+                        unselectedTextColor = unselectedTextBottomAppBarColor
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -78,10 +95,12 @@ fun StarWarsBottomAppBarPreview() {
     StarWarsTheme {
         Surface {
             StarWarsBottomAppBar(
-                selectedItem = BottomAppBarItem.Home,
+                selectedItem = BottomAppBarItem.Movie,
                 items = listOf(
-                    BottomAppBarItem.Home,
-                    BottomAppBarItem.MyList
+                    BottomAppBarItem.Movie,
+                    BottomAppBarItem.Vehicle,
+                    BottomAppBarItem.MyMovieList,
+                    BottomAppBarItem.MyVehicleList,
                 )
             )
         }

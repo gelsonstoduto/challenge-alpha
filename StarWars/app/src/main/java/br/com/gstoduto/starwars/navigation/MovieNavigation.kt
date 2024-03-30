@@ -17,6 +17,7 @@ fun NavGraphBuilder.movieScreen(
     composable(DestinationsStarWarsApp.movieRoute.rota) {
         val viewModel = hiltViewModel<MovieViewModel>()
         val uiState by viewModel.uiState.collectAsState()
+
         MovieScreen(
             uiState = uiState,
             columns = 2,
@@ -28,7 +29,7 @@ fun NavGraphBuilder.movieScreen(
     }
 }
 
-fun NavController.navigateToHome(
+fun NavController.navigateToMovie(
     navOptions: NavOptions? = null
 ) {
     navigate(DestinationsStarWarsApp.movieRoute.rota, navOptions)

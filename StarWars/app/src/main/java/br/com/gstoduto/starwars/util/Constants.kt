@@ -11,4 +11,7 @@ object Constants {
 
     // constante para setar vehicleId
     const val ID_VEHICLE = "id_vehicle"
+
+    // Constante para o timestamp padrão
+    const val DEFAULT_TIMESTAMP: String = "0"
 }

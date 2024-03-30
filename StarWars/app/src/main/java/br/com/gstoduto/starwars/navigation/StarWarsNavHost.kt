@@ -19,6 +19,8 @@ fun StarWarsNavHost(
     ) {
         movieScreen(
             onNavigateToMovieDetails = { movie ->
+                navController.currentDestination
+                BottomAppBarItem.Vehicle.icon
                 navController.navigateToMovieDetails(movie.id.toString())
             },
         )
@@ -26,8 +28,8 @@ fun StarWarsNavHost(
             movieDetails(it)
         }
         myMovieListScreen(
-            onNavigateToHome = {
-                navController.navigateToHome(navOptions {
+            onNavigateToMovie = {
+                navController.navigateToMovie(navOptions {
                     popUpTo(navController.graph.findStartDestination().id) {
                         inclusive = true
                     }
@@ -45,6 +47,18 @@ fun StarWarsNavHost(
         navController.currentBackStackEntry?.savedStateHandle?.let {
             vehicleDetails(it)
         }
+        myVehicleListScreen(
+            onNavigateToVehicle = {
+                navController.navigateToVehicle(navOptions {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                })
+            },
+            onNavigateToVehicleDetails = {
+                navController.navigateToVehicleDetails(it.id.toString())
+            }
+        )
     }
 }
 
@@ -68,19 +82,35 @@ fun NavController.navigateToBottomAppBarItem(
     item: BottomAppBarItem,
 ) {
     when (item) {
-        BottomAppBarItem.Home -> {
-            navigateToHome(
+        BottomAppBarItem.Movie -> {
+            navigateToMovie(
                 navOptions {
                     launchSingleTop = true
                     popUpTo(DestinationsStarWarsApp.movieRoute.rota)
                 }
             )
         }
-        BottomAppBarItem.MyList -> {
-            navigateToMyList(
+        BottomAppBarItem.MyMovieList -> {
+            navigateToMyMovieList(
                 navOptions {
                     launchSingleTop = true
                     popUpTo(DestinationsStarWarsApp.myMovieListRoute.rota)
+                }
+            )
+        }
+        BottomAppBarItem.Vehicle -> {
+            navigateToVehicle(
+                navOptions {
+                    launchSingleTop = true
+                    popUpTo(DestinationsStarWarsApp.vehicleRoute.rota)
+                }
+            )
+        }
+        BottomAppBarItem.MyVehicleList -> {
+            navigateToMyVehicleList(
+                navOptions {
+                    launchSingleTop = true
+                    popUpTo(DestinationsStarWarsApp.myVehicleListRoute.rota)
                 }
             )
         }
